@@ -1,7 +1,10 @@
 # SIRTAKINVEST — Golden Visa Danışmanlık Web Sitesi
 
 Yunanistan Golden Visa yatırım danışmanlığı için **Astro** ile geliştirilmiş statik web sitesi.
-GitHub'a push edildiğinde **Cloudflare Pages** üzerinden otomatik yayınlanacak şekilde hazırlanmıştır.
+
+**Canlı (şimdilik GitHub Pages):** https://fikret.github.io/sirtakinvest/
+`main`'e her push'ta `.github/workflows/deploy.yml` otomatik build alıp GitHub Pages'e yayınlar.
+Kalıcı hedef Cloudflare Pages'tir (aşağıdaki "Cloudflare'e geçiş" bölümüne bakın).
 
 ---
 
@@ -28,13 +31,13 @@ Aşağıdaki yerlerde örnek/placeholder değerler vardır; kendi bilgilerinizle
 - `zoomSchedulerEmbed`: **Zoom Scheduler embed kodunuzu** backtick (\`) içine yapıştırın.
   Boşken "Toplantı Planla" sayfasında yer tutucu kutu görünür; kod eklenince otomatik canlı takvim gelir.
 
-### 2) Site adresi — iki yerde
-- `astro.config.mjs` → `SITE` sabiti
-- `src/config/site.ts` → `site.url`
-- `public/robots.txt` → `Sitemap:` satırı
+### 2) Site adresi ve temel yol (base)
+`astro.config.mjs` ortam değişkeniyle yönetilir; varsayılan **GitHub Pages**'tir:
+- `SITE_URL` (varsayılan `https://fikret.github.io`)
+- `BASE_PATH` (varsayılan `/sirtakinvest`)
 
-Cloudflare Pages alan adınızı (örn. `https://sirtakinvest.com`) bağladıktan sonra bu üç yeri güncelleyin.
-Doğru adres; sitemap, canonical ve sosyal paylaşım (OG) etiketleri için gereklidir.
+Tüm iç linkler `withBase()` (bkz. `src/lib/url.ts`) ile base-duyarlıdır; base değişince otomatik düzelir.
+Ayrıca `src/config/site.ts` → `site.url` ve `public/robots.txt` → `Sitemap:` satırı bilgilendirme amaçlıdır.
 
 ### 3) Görseller
 Tüm görseller şu an marka temalı **yer tutucu (placeholder)**. Gerçek görsel eklemek için
@@ -96,18 +99,26 @@ node scripts/convert-articles.mjs
 
 ---
 
-## Cloudflare Pages'e Yayınlama
+## Cloudflare Pages'e Geçiş (kalıcı hedef)
 
-1. Bu projeyi bir GitHub deposuna push edin.
-2. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**.
-3. Depoyu seçin ve şu ayarları kullanın:
+Cloudflare Pages siteyi **kök alan adında** servis eder, yani `base` artık `/` olmalı (GitHub Pages'teki `/sirtakinvest` değil).
+
+1. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git** → bu depoyu seçin.
+2. Build ayarları:
    - **Framework preset:** `Astro`
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
-   - **Environment variable (gerekirse):** `NODE_VERSION = 22`
-4. **Save and Deploy.** Sonraki her `git push` otomatik yeniden yayınlar.
-5. (Opsiyonel) **Custom domains** ile kendi alan adınızı bağlayın, ardından yukarıdaki
-   "Site adresi" bölümündeki üç yeri güncelleyip tekrar push edin.
+   - **Environment variables:**
+     - `NODE_VERSION = 22`
+     - `BASE_PATH = /`  ← **önemli** (base'i köke çeker)
+     - `SITE_URL = https://<alanadınız>` (sitemap/canonical/OG için)
+3. **Save and Deploy.** Sonraki her `git push` otomatik yeniden yayınlar.
+4. **Custom domains** ile alan adınızı bağlayın. Ardından `public/robots.txt` içindeki `Sitemap:`
+   satırını yeni adresinizle güncelleyin.
+
+> Not: Kod tarafında değişiklik gerekmez — `withBase()` sayesinde `BASE_PATH=/` verince tüm linkler
+> otomatik köke göre üretilir. İsterseniz GitHub Pages workflow'unu (`.github/workflows/deploy.yml`)
+> silebilir ya da bırakabilirsiniz.
 
 ---
 

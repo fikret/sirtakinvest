@@ -1,0 +1,18 @@
+---
+import V3Layout from '../../layouts/V3Layout.astro';
+import { withBase } from '../../lib/url';
+---
+<V3Layout title="v3 — Yeni Tasarım (Yapım Aşamasında)">
+  <main class="v3-placeholder">
+    <div class="inner">
+      <span class="badge">SIRTAKINVEST · v3</span>
+      <h1>Yeni tasarım burada inşa edilecek</h1>
+      <p>
+        Bu sayfa <code>/v3/</code> için ayrılmış izole alandır. Mevcut canlı site ve
+        <code>/v2/</code> bundan etkilenmez. Tasarım yönergenizi (prompt) verdiğinizde yeni
+        tasarım bu adreste oluşturulacaktır.
+      </p>
+      <a class="back" href={withBase('/')}>← Mevcut siteye dön</a>
+    </div>
+  </main>
+</V3Layout>

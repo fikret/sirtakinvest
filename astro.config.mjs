@@ -19,8 +19,8 @@ export default defineConfig({
   site: SITE,
   base: BASE,
   trailingSlash: 'ignore',
-  // /v2/ (yeni tasarım, yapım aşamasında) sitemap'ten hariç tutulur
-  integrations: [sitemap({ filter: (page) => !/\/v2(\/|$)/.test(page) })],
+  // /v2/ ve /v3/ (alternatif tasarımlar) sitemap'ten hariç tutulur
+  integrations: [sitemap({ filter: (page) => !/\/v[23](\/|$)/.test(page) })],
   build: {
     format: 'directory',
   },

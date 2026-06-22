@@ -1,0 +1,85 @@
+---
+import Sparkline from './Sparkline.astro';
+interface Props {
+  href: string;
+  brand: string;
+  location: string;
+  value: string;
+  valueLabel?: string;
+  points?: number[];
+  class?: string;
+}
+const {
+  href,
+  brand,
+  location,
+  value,
+  valueLabel = 'başlangıç',
+  points = [12, 18, 15, 24, 22, 30, 28, 38, 44],
+  class: className = '',
+} = Astro.props;
+---
+<a class={`csc v3-card float ${className}`} href={href}>
+  <div class="csc-top">
+    <span class="csc-brand">{brand}</span>
+    <span class="csc-loc t-body-sm text-slate">{location}</span>
+  </div>
+  <div class="csc-ember">
+    <span class="csc-tag mono">PORTFÖY · EURO</span>
+    <Sparkline points={points} color="#ffffff" />
+    <div class="csc-figure">
+      <span class="csc-val">{value}</span>
+      <span class="csc-vlabel mono">{valueLabel}</span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .csc {
+    display: block;
+    padding: var(--s-32);
+  }
+  .csc-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .csc-brand {
+    font-weight: 500;
+    font-size: 1.125rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .csc-ember {
+    background: var(--ember);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: grid;
+    gap: 14px;
+  }
+  .csc-tag {
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .csc-ember :global(svg) {
+    height: 56px;
+  }
+  .csc-figure {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .csc-val {
+    font-weight: 300;
+    font-size: 1.5rem; /* 24px */
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .csc-vlabel {
+    font-size: 0.625rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+</style>

@@ -1,0 +1,135 @@
+---
+import Icon from '../Icon.astro';
+import DotMap from './DotMap.astro';
+import { site, contact, social, whatsappLink } from '../../config/site';
+const year = 2026;
+const links = [
+  { label: 'Hakkımızda', href: '#hakkimizda' },
+  { label: 'Hizmetler', href: '#hizmetler' },
+  { label: 'Sorular', href: '#sorular' },
+  { label: 'Projeler', href: '#projeler' },
+];
+---
+<footer class="v3footer">
+  <div class="v3footer-map"><DotMap cols={84} rows={26} water={false} /></div>
+  <div class="v3-container v3footer-inner">
+    <div class="v3footer-grid">
+      <div class="v3footer-brand">
+        <span class="v3-word">{site.name}</span>
+        <p class="t-body-sm text-slate">{site.tagline}</p>
+      </div>
+      <nav class="v3footer-col" aria-label="Bölümler">
+        <span class="v3footer-h mono">BÖLÜMLER</span>
+        {links.map((l) => <a class="t-body-sm" href={l.href}>{l.label}</a>)}
+      </nav>
+      <div class="v3footer-col">
+        <span class="v3footer-h mono">İLETİŞİM</span>
+        <a class="t-body-sm" href={contact.phoneHref}>{contact.phoneDisplay}</a>
+        <a class="t-body-sm" href={`mailto:${contact.email}`}>{contact.email}</a>
+        <a class="t-body-sm" href={whatsappLink} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+      <div class="v3footer-col">
+        <span class="v3footer-h mono">SOSYAL</span>
+        <div class="v3footer-social">
+          {social.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name}>
+              <Icon name={s.icon} size={18} />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+    <hr class="hairline" />
+    <div class="v3footer-bottom">
+      <span class="t-caption text-slate">© {year} {site.name}</span>
+      <span class="t-caption text-slate mono">YUNANİSTAN · GOLDEN VISA</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .v3footer {
+    position: relative;
+    margin-top: var(--s-40);
+    overflow: hidden;
+    border-top: 1px solid var(--mist);
+  }
+  .v3footer-map {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 78%;
+    opacity: 0.5;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 70%);
+    mask-image: linear-gradient(to bottom, transparent, #000 70%);
+  }
+  .v3footer-inner {
+    position: relative;
+    padding-block: var(--s-64) var(--s-32);
+  }
+  .v3footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 40px 24px;
+    margin-bottom: var(--s-40);
+  }
+  .v3-word {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--ink);
+  }
+  .v3footer-brand p {
+    margin-top: 10px;
+    max-width: 32ch;
+  }
+  .v3footer-col {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+  .v3footer-h {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: var(--fog);
+  }
+  .v3footer-col a {
+    color: var(--slate);
+    transition: color 0.2s var(--ease);
+  }
+  .v3footer-col a:hover {
+    color: var(--ink);
+  }
+  .v3footer-social {
+    display: flex;
+    gap: 8px;
+  }
+  .v3footer-social a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    border: 1px solid var(--mist);
+    background: var(--card);
+    color: var(--carbon);
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .v3footer-social a:hover {
+    border-color: var(--indigo);
+    color: var(--indigo);
+  }
+  .v3footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: var(--s-20);
+  }
+  @media (max-width: 760px) {
+    .v3footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .v3footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

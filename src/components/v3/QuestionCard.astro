@@ -1,0 +1,65 @@
+---
+import Icon from '../Icon.astro';
+interface Props {
+  href: string;
+  num: string;
+  question: string;
+  spot: string;
+  index?: number;
+}
+const { href, num, question, spot, index = 0 } = Astro.props;
+---
+<a class="qc v3-card-bordered reveal" href={href} style={`--d:${index * 60}ms`}>
+  <span class="qc-num mono">{num}</span>
+  <h3 class="qc-q t-subheading">{question}</h3>
+  <p class="qc-spot t-body-sm text-slate">{spot}</p>
+  <span class="qc-link t-body-sm">
+    Devamını oku <span class="qc-arr" aria-hidden="true">→</span>
+  </span>
+</a>
+
+<style>
+  .qc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: var(--s-24);
+    min-height: 100%;
+    transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+  .qc:hover {
+    box-shadow: var(--sh-card);
+    transform: translateY(-2px);
+    border-color: transparent;
+  }
+  .qc-num {
+    font-size: 0.6875rem;
+    color: var(--fog);
+  }
+  .qc-q {
+    color: var(--ink);
+    margin: 0;
+  }
+  .qc-spot {
+    margin: 0;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .qc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--indigo);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  .qc-arr {
+    transition: transform 0.25s var(--ease);
+  }
+  .qc:hover .qc-arr {
+    transform: translateX(4px);
+  }
+</style>

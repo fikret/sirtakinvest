@@ -1,0 +1,10 @@
+---
+interface Props { href: string; label: string; external?: boolean; class?: string }
+const { href, label, external = false, class: className = '' } = Astro.props;
+const rel = external ? 'noopener noreferrer' : undefined;
+const target = external ? '_blank' : undefined;
+---
+<a class={`btn-ghost ${className}`} href={href} target={target} rel={rel}>
+  <span>{label}</span>
+  <span aria-hidden="true" style="opacity:.55">›</span>
+</a>

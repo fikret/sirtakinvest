@@ -1,12 +1,16 @@
 ---
 /**
- * v3 layout — yeni tasarım için BAĞIMSIZ kabuk.
- * Kök sitenin BaseLayout/global.css'inden ve v2'den ayrıdır; yalnızca v3.css yükler.
+ * v3 layout — "Column" tasarımı için BAĞIMSIZ kabuk.
+ * Kök site (global.css) ve v2'den (v2.css) ayrıdır; Inter + JetBrains Mono + v3.css yükler.
  * İçerik koleksiyonları (articles/projects) ve site config ortak kullanılabilir.
- * Varsayılan olarak noindex (yapım aşamasında arama motorlarına kapalı).
+ * Varsayılan noindex (yapım aşamasında / kök ile çift içerik SEO'su olmasın).
  */
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
 import '../styles/v3.css';
 import BaseHead from '../components/BaseHead.astro';
+import V3Nav from '../components/v3/V3Nav.astro';
+import V3Footer from '../components/v3/V3Footer.astro';
 
 interface Props {
   title?: string;
@@ -20,7 +24,12 @@ const { title = 'v3', description, noindex = true } = Astro.props;
   <head>
     <BaseHead title={title} description={description} noindex={noindex} />
   </head>
-  <body>
-    <slot />
+  <body id="top">
+    <a class="skip-link" href="#main">İçeriğe geç</a>
+    <V3Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <V3Footer />
   </body>
 </html>

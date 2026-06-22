@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 import PlaceholderImage from '../../components/PlaceholderImage.astro';
 import CTABanner from '../../components/CTABanner.astro';
+import { withBase } from '../../lib/url';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects', ({ data }) => !data.draft);
@@ -19,9 +20,9 @@ const d = entry.data;
     <header class="proj-hero">
       <div class="container">
         <nav class="crumbs" aria-label="Konum">
-          <a href="/">Ana Sayfa</a>
+          <a href={withBase('/')}>Ana Sayfa</a>
           <span aria-hidden="true">/</span>
-          <a href="/projeler">Projeler</a>
+          <a href={withBase('/projeler')}>Projeler</a>
         </nav>
         <div class="ph-grid">
           <div class="ph-text">
@@ -39,7 +40,7 @@ const d = entry.data;
                 <span class="meta-value">{d.status}</span>
               </div>
             </div>
-            <a class="btn btn-gold proj-cta" href="/toplanti-planla">
+            <a class="btn btn-gold proj-cta" href={withBase('/toplanti-planla')}>
               <Icon name="calendar" size={18} />
               Bu Proje İçin Randevu Al
             </a>
@@ -56,7 +57,7 @@ const d = entry.data;
         <Content />
       </div>
       <div class="proj-back">
-        <a class="btn btn-outline" href="/projeler">
+        <a class="btn btn-outline" href={withBase('/projeler')}>
           <Icon name="arrow-left" size={16} />
           Tüm Projeler
         </a>

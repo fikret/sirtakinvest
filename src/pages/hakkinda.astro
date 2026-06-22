@@ -4,6 +4,7 @@ import Icon from '../components/Icon.astro';
 import MeanderDivider from '../components/MeanderDivider.astro';
 import CTABanner from '../components/CTABanner.astro';
 import PlaceholderImage from '../components/PlaceholderImage.astro';
+import { withBase } from '../lib/url';
 import { site } from '../config/site';
 
 const stats = [
@@ -51,8 +52,8 @@ const values = [
           en güzel “hediyedir”; asıl olan sermayenizi doğru mülke bağlamaktır.
         </p>
         <div class="about-actions">
-          <a class="btn btn-gold" href="/toplanti-planla"><Icon name="calendar" size={18} />Tanışalım</a>
-          <a class="btn btn-outline" href="/projeler">Projeleri Gör<Icon name="arrow-right" size={16} /></a>
+          <a class="btn btn-gold" href={withBase('/toplanti-planla')}><Icon name="calendar" size={18} />Tanışalım</a>
+          <a class="btn btn-outline" href={withBase('/projeler')}>Projeleri Gör<Icon name="arrow-right" size={16} /></a>
         </div>
       </div>
       <div class="about-media">

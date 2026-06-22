@@ -1,5 +1,6 @@
 ---
 import { site, social } from '../config/site';
+import { withBase } from '../lib/url';
 
 interface Props {
   title: string;
@@ -17,7 +18,7 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
-const ogImage = new URL(image, Astro.site ?? site.url).href;
+const ogImage = new URL(withBase(image), Astro.site ?? site.url).href;
 const fullTitle = title === site.name ? `${site.name} — ${site.tagline}` : `${title} · ${site.name}`;
 
 const orgLd = {
@@ -33,7 +34,7 @@ const orgLd = {
 ---
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
 <meta name="generator" content={Astro.generator} />
 
 <title>{fullTitle}</title>

@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { withBase } from './url';
 
 export type Article = CollectionEntry<'articles'>;
 export type Project = CollectionEntry<'projects'>;
@@ -15,8 +16,9 @@ export async function getProjects(): Promise<Project[]> {
   return all.sort((a, b) => a.data.order - b.data.order);
 }
 
-export const articleHref = (id: string) => `/blog/${id}`;
-export const projectHref = (id: string) => `/projeler/${id}`;
+export const articleHref = (id: string) => withBase(`/blog/${id}`);
+export const projectHref = (id: string) => withBase(`/projeler/${id}`);
+export const categoryHref = (key: string) => withBase(`/kategori/${key}`);
 
 /** Aynı kategoriden ilgili makaleler (kendisi hariç), eksikse diğerleriyle tamamlanır. */
 export function relatedArticles(current: Article, all: Article[], n = 3) {

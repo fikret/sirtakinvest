@@ -3,7 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContentCard from '../../components/ContentCard.astro';
 import CTABanner from '../../components/CTABanner.astro';
 import PlaceholderImage from '../../components/PlaceholderImage.astro';
-import { getArticles, articleHref } from '../../lib/content';
+import { getArticles, articleHref, categoryHref } from '../../lib/content';
+import { withBase } from '../../lib/url';
 import { categories } from '../../config/site';
 import type { CategoryKey } from '../../config/site';
 
@@ -23,9 +24,9 @@ const catEntries = Object.entries(categories);
     <div class="container cat-hero-grid">
       <div class="cat-hero-text">
         <nav class="crumbs" aria-label="Konum">
-          <a href="/">Ana Sayfa</a>
+          <a href={withBase('/')}>Ana Sayfa</a>
           <span aria-hidden="true">/</span>
-          <a href="/blog">Konular</a>
+          <a href={withBase('/blog')}>Konular</a>
         </nav>
         <span class="eyebrow">{cat.short}</span>
         <h1>{cat.label}</h1>
@@ -40,7 +41,7 @@ const catEntries = Object.entries(categories);
   <section class="container filter-bar">
     {
       catEntries.map(([k, c]) => (
-        <a class={`chip ${k === key ? 'chip-active' : ''}`} href={`/kategori/${k}`}>
+        <a class={`chip ${k === key ? 'chip-active' : ''}`} href={categoryHref(k)}>
           {c.label}
         </a>
       ))

@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import MeanderDivider from './MeanderDivider.astro';
+import { withBase } from '../lib/url';
 
 interface Props {
   title?: string;
@@ -20,7 +21,7 @@ const {
     <MeanderDivider />
     <h2 class="cta-title">{title}</h2>
     <p class="cta-text">{text}</p>
-    <a class="btn btn-gold cta-btn" href={href}>
+    <a class="btn btn-gold cta-btn" href={withBase(href)}>
       <Icon name="calendar" size={18} />
       {cta}
     </a>

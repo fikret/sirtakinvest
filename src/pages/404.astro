@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import MeanderDivider from '../components/MeanderDivider.astro';
+import { withBase } from '../lib/url';
 ---
 <BaseLayout title="Sayfa Bulunamadı" noindex={true}>
   <section class="nf">
@@ -11,9 +12,9 @@ import MeanderDivider from '../components/MeanderDivider.astro';
       <h1>Aradığınız sayfa bulunamadı</h1>
       <p class="lead">Bağlantı taşınmış ya da hiç var olmamış olabilir. Buradan devam edebilirsiniz:</p>
       <div class="nf-actions">
-        <a class="btn btn-gold" href="/"><Icon name="arrow-left" size={16} />Ana Sayfa</a>
-        <a class="btn btn-outline" href="/blog">Tüm Sorular</a>
-        <a class="btn btn-outline" href="/toplanti-planla">Toplantı Planla</a>
+        <a class="btn btn-gold" href={withBase('/')}><Icon name="arrow-left" size={16} />Ana Sayfa</a>
+        <a class="btn btn-outline" href={withBase('/blog')}>Tüm Sorular</a>
+        <a class="btn btn-outline" href={withBase('/toplanti-planla')}>Toplantı Planla</a>
       </div>
     </div>
   </section>

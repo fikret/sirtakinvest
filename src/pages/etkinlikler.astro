@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
+import { withBase } from '../lib/url';
 import { social, whatsappLink } from '../config/site';
 ---
 <BaseLayout
@@ -31,7 +32,7 @@ import { social, whatsappLink } from '../config/site';
           <a class="btn btn-gold" href={whatsappLink} target="_blank" rel="noopener noreferrer">
             <Icon name="whatsapp" size={18} />Haberdar Et
           </a>
-          <a class="btn btn-outline" href="/toplanti-planla">
+          <a class="btn btn-outline" href={withBase('/toplanti-planla')}>
             <Icon name="calendar" size={18} />Bireysel Toplantı
           </a>
         </div>

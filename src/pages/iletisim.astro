@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
+import { withBase } from '../lib/url';
 import { contact, social, whatsappLink, site } from '../config/site';
 
 const channels = [
@@ -64,7 +65,7 @@ const channels = [
       <aside class="contact-cta">
         <h2>Hemen Tanışalım</h2>
         <p>En hızlı yol: takvimimizden size uygun bir zaman seçin, yüz yüze veya online görüşelim.</p>
-        <a class="btn btn-gold" href="/toplanti-planla"><Icon name="calendar" size={18} />Toplantı Planla</a>
+        <a class="btn btn-gold" href={withBase('/toplanti-planla')}><Icon name="calendar" size={18} />Toplantı Planla</a>
         <div class="cta-social">
           <span>Takip edin</span>
           <div class="cs-icons">

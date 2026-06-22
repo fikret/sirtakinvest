@@ -8,7 +8,8 @@ import CTABanner from '../components/CTABanner.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import MeanderDivider from '../components/MeanderDivider.astro';
 import Icon from '../components/Icon.astro';
-import { getArticles, getProjects, articleHref, projectHref } from '../lib/content';
+import { getArticles, getProjects, articleHref, projectHref, categoryHref } from '../lib/content';
+import { withBase } from '../lib/url';
 import { site, categories, heroFeatureCategories, stripCategories } from '../config/site';
 
 const articles = await getArticles();
@@ -38,7 +39,7 @@ const chunk3 = articles.slice(12);
       <div class="feature-row">
         <FeatureCard
           variant="cta"
-          href="/toplanti-planla"
+          href={withBase('/toplanti-planla')}
           title="Tanışma Toplantısı Planlayın"
           subtitle="Doğru yatırım stratejisini birlikte konuşalım."
           class="feature-main"
@@ -48,7 +49,7 @@ const chunk3 = articles.slice(12);
           heroFeatureCategories.map((key, i) => (
             <FeatureCard
               variant="category"
-              href={`/kategori/${key}`}
+              href={categoryHref(key)}
               title={categories[key].label}
               label={categories[key].short}
               style={`--d:${(i + 1) * 90}ms`}
@@ -120,7 +121,7 @@ const chunk3 = articles.slice(12);
         {
           stripCategories.map((key, i) => (
             <CategoryBanner
-              href={`/kategori/${key}`}
+              href={categoryHref(key)}
               label={categories[key].label}
               desc={categories[key].description}
               style={`--d:${i * 80}ms`}
@@ -161,7 +162,7 @@ const chunk3 = articles.slice(12);
           <h2>Seçili Projelerimiz</h2>
           <p class="lead">Atina’dan Nafplio’ya, Golden Visa’ya uygun, doğru fiyatlı yatırım fırsatları.</p>
         </div>
-        <a class="btn btn-outline projects-all" href="/projeler">
+        <a class="btn btn-outline projects-all" href={withBase('/projeler')}>
           Tüm Projeler
           <Icon name="arrow-right" size={16} />
         </a>

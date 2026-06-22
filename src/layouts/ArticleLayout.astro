@@ -6,6 +6,8 @@ import ContentCard from '../components/ContentCard.astro';
 import CTABanner from '../components/CTABanner.astro';
 import { categories, site } from '../config/site';
 import type { CategoryKey } from '../config/site';
+import { withBase } from '../lib/url';
+import { categoryHref } from '../lib/content';
 
 interface RelatedItem {
   href: string;
@@ -39,9 +41,9 @@ const articleLd = {
     <header class="article-hero">
       <div class="container">
         <nav class="crumbs" aria-label="Konum">
-          <a href="/">Ana Sayfa</a>
+          <a href={withBase('/')}>Ana Sayfa</a>
           <span aria-hidden="true">/</span>
-          <a href={`/kategori/${category}`}>{cat.label}</a>
+          <a href={categoryHref(category)}>{cat.label}</a>
         </nav>
         <div class="ah-grid">
           <div class="ah-text">
@@ -62,11 +64,11 @@ const articleLd = {
       </div>
 
       <aside class="article-back">
-        <a class="btn btn-outline" href="/blog">
+        <a class="btn btn-outline" href={withBase('/blog')}>
           <Icon name="arrow-left" size={16} />
           Tüm Sorular
         </a>
-        <a class="btn btn-outline" href={`/kategori/${category}`}>
+        <a class="btn btn-outline" href={categoryHref(category)}>
           {cat.label}
           <Icon name="arrow-right" size={16} />
         </a>

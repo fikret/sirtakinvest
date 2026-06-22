@@ -1,16 +1,18 @@
 ---
 import { site, nav, social } from '../config/site';
+import { withBase } from '../lib/url';
 import Icon from './Icon.astro';
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const home = withBase('/').replace(/\/$/, '') || '/';
 const isActive = (href: string) => {
-  const h = href.replace(/\/$/, '') || '/';
-  return h === '/' ? path === '/' : path === h || path.startsWith(h + '/');
+  const h = withBase(href).replace(/\/$/, '') || '/';
+  return h === home ? path === home : path === h || path.startsWith(h + '/');
 };
 ---
 <header class="site-header" data-header>
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label={`${site.name} ana sayfa`}>
+    <a class="brand" href={withBase('/')} aria-label={`${site.name} ana sayfa`}>
       <span class="brand-name">{site.name}</span>
       <span class="brand-tagline">{site.tagline}</span>
     </a>
@@ -19,11 +21,11 @@ const isActive = (href: string) => {
       {
         nav.map((item) =>
           item.href === '/toplanti-planla' ? (
-            <a class="nav-cta" href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+            <a class="nav-cta" href={withBase(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
               {item.label}
             </a>
           ) : (
-            <a class="nav-link" href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+            <a class="nav-link" href={withBase(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
               {item.label}
             </a>
           ),
@@ -50,7 +52,7 @@ const isActive = (href: string) => {
     <nav aria-label="Mobil menü">
       {
         nav.map((item) => (
-          <a class="mobile-link" href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+          <a class="mobile-link" href={withBase(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
             {item.label}
           </a>
         ))

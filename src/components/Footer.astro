@@ -1,5 +1,7 @@
 ---
 import { site, nav, social, contact, categories, whatsappLink } from '../config/site';
+import { withBase } from '../lib/url';
+import { categoryHref } from '../lib/content';
 import Icon from './Icon.astro';
 
 const year = 2026;
@@ -24,14 +26,14 @@ const catEntries = Object.entries(categories);
     <nav class="footer-col" aria-label="Menü">
       <h3>Menü</h3>
       <ul>
-        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        {nav.map((item) => <li><a href={withBase(item.href)}>{item.label}</a></li>)}
       </ul>
     </nav>
 
     <nav class="footer-col" aria-label="Konular">
       <h3>Konular</h3>
       <ul>
-        {catEntries.map(([key, c]) => <li><a href={`/kategori/${key}`}>{c.label}</a></li>)}
+        {catEntries.map(([key, c]) => <li><a href={categoryHref(key)}>{c.label}</a></li>)}
       </ul>
     </nav>
 

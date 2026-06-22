@@ -1,0 +1,26 @@
+---
+/**
+ * v4 layout — yeni tasarım için BAĞIMSIZ kabuk.
+ * Kök site (global.css), v2 (v2.css) ve v3 (v3.css)'ten ayrıdır; yalnızca v4.css yükler.
+ * İçerik koleksiyonları (articles/projects) ve site config ortak kullanılabilir.
+ * Varsayılan olarak noindex (yapım aşamasında arama motorlarına kapalı).
+ */
+import '../styles/v4.css';
+import BaseHead from '../components/BaseHead.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const { title = 'v4', description, noindex = true } = Astro.props;
+---
+<!doctype html>
+<html lang="tr">
+  <head>
+    <BaseHead title={title} description={description} noindex={noindex} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

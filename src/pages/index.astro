@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroCarousel from '../components/HeroCarousel.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import ContentCard from '../components/ContentCard.astro';
+import CategoryBanner from '../components/CategoryBanner.astro';
+import CTABanner from '../components/CTABanner.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import MeanderDivider from '../components/MeanderDivider.astro';
+import Icon from '../components/Icon.astro';
+import { getArticles, getProjects, articleHref, projectHref } from '../lib/content';
+import { site, categories, heroFeatureCategories, stripCategories } from '../config/site';
+
+const articles = await getArticles();
+const projects = await getProjects();
+
+const slides = articles
+  .filter((a) => a.data.featured)
+  .map((a) => ({
+    href: articleHref(a.id),
+    title: a.data.cardTitle,
+    spot: a.data.spot,
+    label: a.data.placeholderLabel,
+    tag: a.data.heroTag,
+  }));
+
+// Soru kartlarını wireframe ritmine göre bölelim
+const chunk1 = articles.slice(0, 9);
+const chunk2 = articles.slice(9, 12);
+const chunk3 = articles.slice(12);
+---
+<BaseLayout title={site.name}>
+  <HeroCarousel slides={slides} />
+
+  <!-- Öne çıkan kategori + randevu kartları -->
+  <section class="section">
+    <div class="container">
+      <div class="feature-row">
+        <FeatureCard
+          variant="cta"
+          href="/toplanti-planla"
+          title="Tanışma Toplantısı Planlayın"
+          subtitle="Doğru yatırım stratejisini birlikte konuşalım."
+          class="feature-main"
+          style="--d:0ms"
+        />
+        {
+          heroFeatureCategories.map((key, i) => (
+            <FeatureCard
+              variant="category"
+              href={`/kategori/${key}`}
+              title={categories[key].label}
+              label={categories[key].short}
+              style={`--d:${(i + 1) * 90}ms`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Sık sorulan sorular -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Merak Edilenler</span>
+        <h2>Golden Visa Hakkında Sık Sorulanlar</h2>
+        <p class="lead">
+          Yatırımcıların en çok sorduğu soruları, 10 yılı aşkın saha tecrübemizle yanıtladık.
+        </p>
+      </div>
+      <div class="card-grid">
+        {
+          chunk1.map((a, i) => (
+            <ContentCard
+              href={articleHref(a.id)}
+              cardTitle={a.data.cardTitle}
+              spot={a.data.spot}
+              category={a.data.category}
+              style={`--d:${i * 60}ms`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA banner -->
+  <section class="section-tight">
+    <div class="container">
+      <CTABanner />
+    </div>
+  </section>
+
+  <!-- Soru kartları (2. blok) -->
+  {
+    chunk2.length > 0 && (
+      <section class="section-tight">
+        <div class="container">
+          <div class="card-grid">
+            {chunk2.map((a, i) => (
+              <ContentCard
+                href={articleHref(a.id)}
+                cardTitle={a.data.cardTitle}
+                spot={a.data.spot}
+                category={a.data.category}
+                style={`--d:${i * 60}ms`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Kategori şeritleri -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="strip-row">
+        {
+          stripCategories.map((key, i) => (
+            <CategoryBanner
+              href={`/kategori/${key}`}
+              label={categories[key].label}
+              desc={categories[key].description}
+              style={`--d:${i * 80}ms`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Soru kartları (3. blok) -->
+  {
+    chunk3.length > 0 && (
+      <section class="section-tight">
+        <div class="container">
+          <div class="card-grid">
+            {chunk3.map((a, i) => (
+              <ContentCard
+                href={articleHref(a.id)}
+                cardTitle={a.data.cardTitle}
+                spot={a.data.spot}
+                category={a.data.category}
+                style={`--d:${i * 60}ms`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Projeler -->
+  <section class="section">
+    <div class="container">
+      <div class="projects-head">
+        <div class="section-head reveal">
+          <span class="eyebrow">Portföy</span>
+          <h2>Seçili Projelerimiz</h2>
+          <p class="lead">Atina’dan Nafplio’ya, Golden Visa’ya uygun, doğru fiyatlı yatırım fırsatları.</p>
+        </div>
+        <a class="btn btn-outline projects-all" href="/projeler">
+          Tüm Projeler
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+      <div class="project-grid">
+        {
+          projects.slice(0, 3).map((p, i) => (
+            <ProjectCard
+              href={projectHref(p.id)}
+              title={p.data.title}
+              projectCode={p.data.projectCode}
+              location={p.data.location}
+              priceFrom={p.data.priceFrom}
+              status={p.data.status}
+              summary={p.data.summary}
+              label={p.data.placeholderLabel}
+              style={`--d:${i * 80}ms`}
+            />
+          ))
+        }
+      </div>
+      <MeanderDivider class="projects-divider" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .feature-row {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .feature-row :global(.feature-main) {
+    grid-row: span 1;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .strip-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    margin-top: 2rem;
+  }
+
+  .projects-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .projects-divider {
+    margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  }
+
+  @media (max-width: 980px) {
+    .feature-row {
+      grid-template-columns: 1fr 1fr;
+    }
+    .feature-row :global(.feature-main) {
+      grid-column: 1 / -1;
+    }
+    .card-grid,
+    .strip-row,
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .feature-row,
+    .card-grid,
+    .strip-row,
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

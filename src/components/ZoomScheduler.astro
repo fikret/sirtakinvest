@@ -1,0 +1,94 @@
+---
+import Icon from './Icon.astro';
+import { zoomSchedulerEmbed, whatsappLink, contact } from '../config/site';
+
+const hasEmbed = zoomSchedulerEmbed.trim().length > 0;
+---
+{
+  hasEmbed ? (
+    <div class="zoom-embed" set:html={zoomSchedulerEmbed} />
+  ) : (
+    <div class="zoom-placeholder">
+      <span class="zp-key" aria-hidden="true">
+        <Icon name="calendar" size={28} />
+      </span>
+      <h3>Zoom randevu takvimi buraya gelecek</h3>
+      <p>
+        Bu alan, Zoom Scheduler embed kodunuz için ayrılmıştır. Kodu eklemek için
+        <code>src/config/site.ts</code> dosyasındaki <code>zoomSchedulerEmbed</code> alanına
+        (backtick içine) yapıştırmanız yeterli — sayfa otomatik olarak canlı takvimi gösterecektir.
+      </p>
+      <div class="zp-actions">
+        <a class="btn btn-gold" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+          <Icon name="whatsapp" size={18} />
+          WhatsApp ile yaz
+        </a>
+        <a class="btn btn-outline" href={contact.phoneHref}>
+          <Icon name="phone" size={18} />
+          {contact.phoneDisplay}
+        </a>
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .zoom-embed {
+    width: 100%;
+    min-height: 640px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+  }
+  .zoom-embed :global(iframe) {
+    width: 100%;
+    min-height: 640px;
+    border: 0;
+    display: block;
+  }
+
+  .zoom-placeholder {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 0.9rem;
+    padding: clamp(2.5rem, 2rem + 3vw, 4rem) 1.5rem;
+    border: 1.5px dashed var(--line);
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, var(--white), var(--paper-2));
+  }
+  .zp-key {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    color: var(--gold-600);
+    background: var(--gold-100);
+    border: 1px solid rgba(200, 162, 75, 0.4);
+  }
+  .zoom-placeholder h3 {
+    color: var(--navy-800);
+  }
+  .zoom-placeholder p {
+    max-width: 54ch;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .zoom-placeholder code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em;
+    background: rgba(13, 43, 69, 0.07);
+    padding: 0.1em 0.4em;
+    border-radius: 5px;
+    color: var(--navy-800);
+  }
+  .zp-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    justify-content: center;
+    margin-top: 0.6rem;
+  }
+</style>

@@ -1,0 +1,19 @@
+# Bağımlılıklar
+node_modules/
+
+# Astro çıktıları
+dist/
+.astro/
+
+# Ortam dosyaları
+.env
+.env.production
+
+# Sistem / editör
+.DS_Store
+*.log
+npm-debug.log*
+
+# Kaynak materyaller (yayınlanan repoya dahil edilmez — yereldeki referans)
+kaynaklar/
+site-structure.jpeg

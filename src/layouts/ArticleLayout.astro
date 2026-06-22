@@ -1,0 +1,179 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import PlaceholderImage from '../components/PlaceholderImage.astro';
+import ContentCard from '../components/ContentCard.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { categories, site } from '../config/site';
+import type { CategoryKey } from '../config/site';
+
+interface RelatedItem {
+  href: string;
+  cardTitle: string;
+  spot: string;
+  category: CategoryKey;
+}
+interface Props {
+  title: string;
+  spot: string;
+  category: CategoryKey;
+  label?: string;
+  heroTag?: string;
+  related?: RelatedItem[];
+}
+const { title, spot, category, label, heroTag, related = [] } = Astro.props;
+const cat = categories[category];
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: spot,
+  inLanguage: 'tr',
+  articleSection: cat.label,
+  publisher: { '@type': 'Organization', name: site.name, url: site.url },
+};
+---
+<BaseLayout title={title} description={spot} type="article">
+  <article>
+    <header class="article-hero">
+      <div class="container">
+        <nav class="crumbs" aria-label="Konum">
+          <a href="/">Ana Sayfa</a>
+          <span aria-hidden="true">/</span>
+          <a href={`/kategori/${category}`}>{cat.label}</a>
+        </nav>
+        <div class="ah-grid">
+          <div class="ah-text">
+            <span class="eyebrow">{heroTag ?? cat.short}</span>
+            <h1>{title}</h1>
+            <p class="lead">{spot}</p>
+          </div>
+          <div class="ah-media">
+            <PlaceholderImage label={label ?? cat.short} tag={cat.label} variant="auto" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container article-body">
+      <div class="prose narrow">
+        <slot />
+      </div>
+
+      <aside class="article-back">
+        <a class="btn btn-outline" href="/blog">
+          <Icon name="arrow-left" size={16} />
+          Tüm Sorular
+        </a>
+        <a class="btn btn-outline" href={`/kategori/${category}`}>
+          {cat.label}
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </aside>
+    </div>
+
+    {
+      related.length > 0 && (
+        <section class="section-tight related">
+          <div class="container">
+            <h2 class="related-title">İlgili Sorular</h2>
+            <div class="related-grid">
+              {related.map((r, i) => (
+                <ContentCard
+                  href={r.href}
+                  cardTitle={r.cardTitle}
+                  spot={r.spot}
+                  category={r.category}
+                  style={`--d:${i * 80}ms`}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <div class="container section-tight">
+      <CTABanner />
+    </div>
+
+    <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  </article>
+</BaseLayout>
+
+<style>
+  .article-hero {
+    padding-block: clamp(1.6rem, 1.2rem + 2vw, 3rem) clamp(2rem, 1.5rem + 2vw, 3rem);
+    background: linear-gradient(180deg, var(--paper-2), transparent);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .crumbs {
+    display: flex;
+    gap: 0.6em;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.6rem;
+  }
+  .crumbs a:hover {
+    color: var(--navy-700);
+  }
+  .ah-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(1.5rem, 1rem + 3vw, 3rem);
+    align-items: center;
+  }
+  .ah-text h1 {
+    margin-top: 0.7rem;
+    text-wrap: balance;
+  }
+  .ah-text .lead {
+    margin-top: 1.1rem;
+  }
+  .ah-media {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .article-body {
+    padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
+  }
+  .prose.narrow {
+    margin-inline: auto;
+  }
+  .article-back {
+    max-width: var(--container-narrow);
+    margin: 3rem auto 0;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line-soft);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .related-title {
+    margin-bottom: 1.6rem;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  @media (max-width: 820px) {
+    .ah-grid {
+      grid-template-columns: 1fr;
+    }
+    .ah-media {
+      order: -1;
+      aspect-ratio: 16 / 9;
+    }
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

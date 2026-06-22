@@ -1,0 +1,71 @@
+---
+import Icon from './Icon.astro';
+import MeanderDivider from './MeanderDivider.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+  href?: string;
+  cta?: string;
+}
+const {
+  title = 'Yüz Yüze Tanışma Toplantısından Randevu Alın',
+  text = 'Golden Visa yolculuğunuza başlamadan önce, ihtiyaçlarınızı ve doğru yatırım stratejisini birlikte konuşalım.',
+  href = '/toplanti-planla',
+  cta = 'Toplantı Planla',
+} = Astro.props;
+---
+<section class="cta-banner reveal">
+  <div class="cta-inner">
+    <MeanderDivider />
+    <h2 class="cta-title">{title}</h2>
+    <p class="cta-text">{text}</p>
+    <a class="btn btn-gold cta-btn" href={href}>
+      <Icon name="calendar" size={18} />
+      {cta}
+    </a>
+  </div>
+</section>
+
+<style>
+  .cta-banner {
+    position: relative;
+    border-radius: var(--radius-lg);
+    padding: clamp(2.4rem, 1.8rem + 3vw, 4rem) clamp(1.4rem, 1rem + 2vw, 3rem);
+    text-align: center;
+    color: var(--paper);
+    overflow: hidden;
+    background:
+      radial-gradient(80% 120% at 50% -10%, rgba(29, 90, 134, 0.55), transparent 60%),
+      linear-gradient(160deg, var(--navy-700), var(--navy-900));
+    box-shadow: var(--shadow-lg);
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(60% 80% at 50% 120%, rgba(200, 162, 75, 0.22), transparent 70%);
+    pointer-events: none;
+  }
+  .cta-inner {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+  .cta-title {
+    font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);
+    color: var(--paper);
+    text-wrap: balance;
+  }
+  .cta-text {
+    color: rgba(247, 243, 234, 0.82);
+    max-width: 50ch;
+    line-height: 1.6;
+  }
+  .cta-btn {
+    margin-top: 0.6rem;
+  }
+</style>

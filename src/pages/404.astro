@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import MeanderDivider from '../components/MeanderDivider.astro';
+---
+<BaseLayout title="Sayfa Bulunamadı" noindex={true}>
+  <section class="nf">
+    <div class="container">
+      <span class="nf-code">404</span>
+      <MeanderDivider />
+      <h1>Aradığınız sayfa bulunamadı</h1>
+      <p class="lead">Bağlantı taşınmış ya da hiç var olmamış olabilir. Buradan devam edebilirsiniz:</p>
+      <div class="nf-actions">
+        <a class="btn btn-gold" href="/"><Icon name="arrow-left" size={16} />Ana Sayfa</a>
+        <a class="btn btn-outline" href="/blog">Tüm Sorular</a>
+        <a class="btn btn-outline" href="/toplanti-planla">Toplantı Planla</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    text-align: center;
+    padding-block: clamp(4rem, 3rem + 6vw, 8rem);
+    display: grid;
+    place-items: center;
+  }
+  .nf-code {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(4rem, 3rem + 8vw, 8rem);
+    line-height: 1;
+    color: var(--navy-800);
+  }
+  .nf h1 {
+    margin-top: 1.5rem;
+  }
+  .nf .lead {
+    margin-top: 1rem;
+    max-width: 48ch;
+    margin-inline: auto;
+  }
+  .nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+</style>

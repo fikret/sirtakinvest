@@ -1,0 +1,102 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  desc?: string;
+  style?: string;
+}
+const { href, label, desc, style } = Astro.props;
+---
+<a class="cat-banner reveal" href={href} style={style}>
+  <span class="cb-key" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square">
+      <path d="M3 21V3h18v18H8V9h7v6" />
+    </svg>
+  </span>
+  <span class="cb-text">
+    <span class="cb-label">{label}</span>
+    {desc && <span class="cb-desc">{desc}</span>}
+  </span>
+  <Icon name="arrow-right" size={20} class="cb-arrow" />
+</a>
+
+<style>
+  .cat-banner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.3rem 1.5rem;
+    border-radius: var(--radius);
+    background: linear-gradient(150deg, var(--navy-700), var(--navy-800));
+    color: var(--paper);
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    overflow: hidden;
+    position: relative;
+  }
+  .cat-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(70% 100% at 100% 0%, rgba(200, 162, 75, 0.25), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+  }
+  .cat-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+  .cat-banner:hover::after {
+    opacity: 1;
+  }
+  .cb-key {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(247, 243, 234, 0.08);
+    border: 1px solid rgba(217, 189, 120, 0.35);
+    color: var(--gold-400);
+  }
+  .cb-key svg {
+    width: 22px;
+    height: 22px;
+  }
+  .cb-text {
+    flex: 1;
+    display: grid;
+    gap: 0.2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .cb-label {
+    font-family: var(--font-display);
+    font-weight: 560;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+  }
+  .cb-desc {
+    font-size: 0.84rem;
+    color: rgba(247, 243, 234, 0.72);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cb-arrow {
+    flex: none;
+    color: var(--gold-400);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s var(--ease);
+  }
+  .cat-banner:hover .cb-arrow {
+    transform: translateX(4px);
+  }
+</style>

@@ -1,0 +1,245 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import MeanderDivider from '../components/MeanderDivider.astro';
+import CTABanner from '../components/CTABanner.astro';
+import PlaceholderImage from '../components/PlaceholderImage.astro';
+import { site } from '../config/site';
+
+const stats = [
+  { value: '10+', label: 'Yıl Saha Tecrübesi' },
+  { value: '2–4 ay', label: 'Ortalama Süreç' },
+  { value: '3 Kuşak', label: 'Aile Kapsamı' },
+  { value: '€ Bazlı', label: 'Kira Geliri' },
+];
+
+const values = [
+  {
+    icon: 'check',
+    title: 'Şişirilmiş Fiyata Hayır',
+    text: 'Sadece vize limitini doldurmak için pahalıya satılan mülklere karşı, gerçek piyasa değeriyle yatırım yaptırırız.',
+  },
+  {
+    icon: 'pin',
+    title: 'Doğru Lokasyon',
+    text: 'Atina’dan Nafplio’ya; kira sürekliliği, likidite ve yaşam kalitesi yüksek bölgelere yönlendiririz.',
+  },
+  {
+    icon: 'check',
+    title: 'Dürüst Ekspertiz',
+    text: 'Bir mülkün gerçek fırsat mı yoksa balon mu olduğunu, 10 yıllık saha tecrübemizle ayırt ederiz.',
+  },
+  {
+    icon: 'calendar',
+    title: 'Uçtan Uca Takip',
+    text: 'Vekaletten tapuya, parmak izinden 5 yıllık yenilemeye kadar tüm süreci sizin adınıza yönetiriz.',
+  },
+];
+---
+<BaseLayout
+  title="Hakkımızda"
+  description="Sirtakinvest, Yunanistan Golden Visa sürecinde 10 yılı aşkın saha tecrübesiyle doğru mülk, doğru fiyat ve doğru hukuki yapı kurar."
+>
+  <section class="about-hero">
+    <div class="container about-grid">
+      <div class="about-text">
+        <span class="eyebrow">Hakkımızda</span>
+        <h1>Avrupa’da Misafir Değil, Ev Sahibi Olun</h1>
+        <p class="lead">
+          {site.name}, Yunanistan Golden Visa sürecinde {site.experienceYears} yılı aşkın saha
+          tecrübesiyle yanınızda. Bizim için oturum izni, kârlı bir gayrimenkul yatırımının yanındaki
+          en güzel “hediyedir”; asıl olan sermayenizi doğru mülke bağlamaktır.
+        </p>
+        <div class="about-actions">
+          <a class="btn btn-gold" href="/toplanti-planla"><Icon name="calendar" size={18} />Tanışalım</a>
+          <a class="btn btn-outline" href="/projeler">Projeleri Gör<Icon name="arrow-right" size={16} /></a>
+        </div>
+      </div>
+      <div class="about-media">
+        <PlaceholderImage label="Atina" tag="Yunanistan" variant="deep" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="stats">
+        {
+          stats.map((s, i) => (
+            <div class="stat reveal" style={`--d:${i * 70}ms`}>
+              <span class="stat-value">{s.value}</span>
+              <span class="stat-label">{s.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow about-story">
+      <h2>Neden Sirtakinvest?</h2>
+      <p>
+        Yunanistan, kriz günlerini çoktan geride bıraktı; bugün Avrupa’nın en diri yatırım
+        merkezlerinden biri. Ancak bir yatırımcı olarak asıl mesele sadece oturum izni almak değil,
+        paranızın karşılığını gerçekten almaktır. Doğru bir stratejiyle yapılan yatırım, size sadece
+        bir “kart” kazandırmaz; yarın satmak istediğinizde yerel halkın bile talip olacağı, gerçek
+        değeri olan bir mülk kazandırır.
+      </p>
+      <p>
+        Golden Visa’yı tek bir kişinin aldığı oturum kartı olarak değil, eşinizi, çocuklarınızı,
+        anne-babanızı ve eşinizin anne-babasını kapsayan bir <strong>aile koruma kalkanı</strong>
+        olarak görüyoruz. Her ailenin yapısı farklıdır; bu yüzden yatırımı, olası boşanma, miras veya
+        aileye yeni katılacak bireyler gibi senaryoları da düşünerek baştan doğru kurgularız.
+      </p>
+      <MeanderDivider class="story-divider" />
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Çalışma İlkemiz</span>
+        <h2>Yatırımınızı Korumaya Odaklanırız</h2>
+      </div>
+      <div class="values-grid">
+        {
+          values.map((v, i) => (
+            <div class="value-card reveal" style={`--d:${i * 70}ms`}>
+              <span class="value-icon"><Icon name={v.icon} size={22} /></span>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <CTABanner />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero {
+    padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+    background: linear-gradient(180deg, var(--paper-2), transparent);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+    align-items: center;
+  }
+  .about-text h1 {
+    margin-top: 0.6rem;
+  }
+  .about-text .lead {
+    margin-top: 1.1rem;
+  }
+  .about-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.8rem;
+  }
+  .about-media {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+  .stat {
+    text-align: center;
+    padding: 1.6rem 1rem;
+    border-radius: var(--radius);
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-sm);
+  }
+  .stat-value {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 580;
+    font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.5rem);
+    color: var(--navy-800);
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .about-story h2 {
+    margin-bottom: 1.1rem;
+  }
+  .about-story p + p {
+    margin-top: 1.1rem;
+  }
+  .about-story p {
+    color: var(--ink-soft);
+    line-height: 1.75;
+  }
+  .story-divider {
+    margin-top: 2.5rem;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin-top: 1.8rem;
+  }
+  .value-card {
+    padding: 1.6rem;
+    border-radius: var(--radius);
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-sm);
+  }
+  .value-icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    color: var(--gold-600);
+    background: var(--gold-100);
+    border: 1px solid rgba(200, 162, 75, 0.35);
+    margin-bottom: 1rem;
+  }
+  .value-card h3 {
+    color: var(--navy-800);
+    margin-bottom: 0.5rem;
+  }
+  .value-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 860px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-media {
+      order: -1;
+      aspect-ratio: 16 / 9;
+    }
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import PlaceholderImage from '../../components/PlaceholderImage.astro';
+import { getArticles, articleHref } from '../../lib/content';
+import { categories } from '../../config/site';
+import type { CategoryKey } from '../../config/site';
+
+export async function getStaticPaths() {
+  return Object.keys(categories).map((key) => ({ params: { category: key } }));
+}
+
+const { category } = Astro.params;
+const key = category as CategoryKey;
+const cat = categories[key];
+const all = await getArticles();
+const items = all.filter((a) => a.data.category === key);
+const catEntries = Object.entries(categories);
+---
+<BaseLayout title={cat.label} description={cat.description}>
+  <section class="cat-hero">
+    <div class="container cat-hero-grid">
+      <div class="cat-hero-text">
+        <nav class="crumbs" aria-label="Konum">
+          <a href="/">Ana Sayfa</a>
+          <span aria-hidden="true">/</span>
+          <a href="/blog">Konular</a>
+        </nav>
+        <span class="eyebrow">{cat.short}</span>
+        <h1>{cat.label}</h1>
+        <p class="lead">{cat.description}</p>
+      </div>
+      <div class="cat-hero-media">
+        <PlaceholderImage label={cat.short} tag={cat.label} variant="auto" />
+      </div>
+    </div>
+  </section>
+
+  <section class="container filter-bar">
+    {
+      catEntries.map(([k, c]) => (
+        <a class={`chip ${k === key ? 'chip-active' : ''}`} href={`/kategori/${k}`}>
+          {c.label}
+        </a>
+      ))
+    }
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      {
+        items.length > 0 ? (
+          <div class="card-grid">
+            {items.map((a, i) => (
+              <ContentCard
+                href={articleHref(a.id)}
+                cardTitle={a.data.cardTitle}
+                spot={a.data.spot}
+                category={a.data.category}
+                style={`--d:${i * 60}ms`}
+              />
+            ))}
+          </div>
+        ) : (
+          <p class="empty">Bu kategoride henüz içerik bulunmuyor.</p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <CTABanner />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cat-hero {
+    padding-block: clamp(1.6rem, 1.2rem + 2vw, 3rem);
+    background: linear-gradient(180deg, var(--paper-2), transparent);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .cat-hero-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(1.5rem, 1rem + 3vw, 3rem);
+    align-items: center;
+  }
+  .crumbs {
+    display: flex;
+    gap: 0.6em;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.3rem;
+  }
+  .crumbs a:hover {
+    color: var(--navy-700);
+  }
+  .cat-hero-text h1 {
+    margin-top: 0.5rem;
+  }
+  .cat-hero-text .lead {
+    margin-top: 1rem;
+  }
+  .cat-hero-media {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-top: 1.6rem;
+  }
+  .chip {
+    padding: 0.5em 1.1em;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--white);
+    transition: all 0.2s var(--ease);
+  }
+  .chip:hover {
+    border-color: var(--navy-700);
+    color: var(--navy-800);
+  }
+  .chip-active {
+    background: var(--navy-800);
+    color: var(--paper);
+    border-color: var(--navy-800);
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .empty {
+    color: var(--muted);
+    padding: 2rem 0;
+  }
+  @media (max-width: 820px) {
+    .cat-hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .cat-hero-media {
+      order: -1;
+      aspect-ratio: 16 / 9;
+    }
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

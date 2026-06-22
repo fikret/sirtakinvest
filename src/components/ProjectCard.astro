@@ -1,0 +1,123 @@
+---
+import Icon from './Icon.astro';
+import PlaceholderImage from './PlaceholderImage.astro';
+
+interface Props {
+  href: string;
+  title: string;
+  projectCode: string;
+  location: string;
+  priceFrom: string;
+  status?: string;
+  summary?: string;
+  label?: string;
+  style?: string;
+}
+const { href, title, projectCode, location, priceFrom, status = 'Aktif', summary, label, style } =
+  Astro.props;
+---
+<a class="card project-card reveal" href={href} style={style}>
+  <div class="pc-media">
+    <PlaceholderImage label={label ?? location} tag={projectCode} variant="deep" />
+    <span class="pc-status">{status}</span>
+  </div>
+  <div class="pc-body">
+    <span class="pc-loc"><Icon name="pin" size={15} />{location}</span>
+    <h3 class="pc-title">{title}</h3>
+    {summary && <p class="pc-summary">{summary}</p>}
+    <div class="pc-foot">
+      <span class="pc-price">{priceFrom}<small>’den başlayan</small></span>
+      <span class="pc-more"><Icon name="arrow-up-right" size={18} /></span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .project-card {
+    overflow: hidden;
+  }
+  .pc-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+  }
+  .pc-status {
+    position: absolute;
+    top: 0.9rem;
+    left: 0.9rem;
+    z-index: 2;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #14310f;
+    background: #b9d8a3;
+    padding: 0.3em 0.8em;
+    border-radius: 999px;
+  }
+  .pc-body {
+    padding: 1.3rem 1.4rem 1.4rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .pc-loc {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gold-600);
+  }
+  .pc-title {
+    font-size: 1.25rem;
+    color: var(--navy-800);
+  }
+  .pc-summary {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pc-foot {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pc-price {
+    font-family: var(--font-display);
+    font-weight: 560;
+    font-size: 1.15rem;
+    color: var(--navy-800);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+  }
+  .pc-price small {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .pc-more {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: var(--navy-700);
+    border: 1px solid var(--line);
+    transition: background 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .project-card:hover .pc-more {
+    background: var(--navy-800);
+    color: var(--gold-400);
+    border-color: var(--navy-800);
+    transform: translate(2px, -2px);
+  }
+</style>

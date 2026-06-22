@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="Georgia, 'Times New Roman', serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#13456b"/>
+      <stop offset="1" stop-color="#0a2238"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.85" cy="0.1" r="0.7">
+      <stop offset="0" stop-color="#1d5a86" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#1d5a86" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <path d="M70 70 H1130 V560 H70 Z" fill="none" stroke="#c8a24b" stroke-opacity="0.45" stroke-width="2"/>
+  <path d="M880 470 V200 H1080 V470 H960 V300 H1020 V380"
+        fill="none" stroke="#c8a24b" stroke-opacity="0.16" stroke-width="10" stroke-linecap="square"/>
+  <text x="100" y="250" fill="#f7f3ea" font-size="84" font-weight="600" letter-spacing="4">SIRTAKINVEST</text>
+  <text x="104" y="320" fill="#d9bd78" font-size="34" font-family="system-ui, sans-serif" letter-spacing="6">YUNANİSTAN · GOLDEN VISA</text>
+  <text x="104" y="430" fill="#f7f3ea" fill-opacity="0.86" font-size="40" font-family="system-ui, sans-serif">Avrupa’da misafir değil, ev sahibi olun.</text>
+  <text x="104" y="495" fill="#f7f3ea" fill-opacity="0.6" font-size="26" font-family="system-ui, sans-serif">10+ yıl saha tecrübesiyle Golden Visa yatırım danışmanlığı</text>
+</svg>

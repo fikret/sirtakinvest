@@ -1,0 +1,162 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import PlaceholderImage from '../../components/PlaceholderImage.astro';
+import CTABanner from '../../components/CTABanner.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<BaseLayout title={d.title} description={d.summary} type="article">
+  <article>
+    <header class="proj-hero">
+      <div class="container">
+        <nav class="crumbs" aria-label="Konum">
+          <a href="/">Ana Sayfa</a>
+          <span aria-hidden="true">/</span>
+          <a href="/projeler">Projeler</a>
+        </nav>
+        <div class="ph-grid">
+          <div class="ph-text">
+            <span class="eyebrow">{d.projectCode}</span>
+            <h1>{d.title}</h1>
+            <p class="proj-loc"><Icon name="pin" size={17} />{d.location}</p>
+            <p class="lead">{d.summary}</p>
+            <div class="proj-meta">
+              <div class="meta-box">
+                <span class="meta-label">Başlangıç Fiyatı</span>
+                <span class="meta-value">{d.priceFrom}</span>
+              </div>
+              <div class="meta-box">
+                <span class="meta-label">Durum</span>
+                <span class="meta-value">{d.status}</span>
+              </div>
+            </div>
+            <a class="btn btn-gold proj-cta" href="/toplanti-planla">
+              <Icon name="calendar" size={18} />
+              Bu Proje İçin Randevu Al
+            </a>
+          </div>
+          <div class="ph-media">
+            <PlaceholderImage label={d.placeholderLabel || d.location} tag={d.projectCode} variant="deep" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container proj-body">
+      <div class="prose narrow">
+        <Content />
+      </div>
+      <div class="proj-back">
+        <a class="btn btn-outline" href="/projeler">
+          <Icon name="arrow-left" size={16} />
+          Tüm Projeler
+        </a>
+      </div>
+    </div>
+
+    <div class="container section-tight">
+      <CTABanner />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .proj-hero {
+    padding-block: clamp(1.6rem, 1.2rem + 2vw, 3rem);
+    background: linear-gradient(180deg, var(--paper-2), transparent);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .crumbs {
+    display: flex;
+    gap: 0.6em;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.6rem;
+  }
+  .crumbs a:hover {
+    color: var(--navy-700);
+  }
+  .ph-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(1.5rem, 1rem + 3vw, 3rem);
+    align-items: center;
+  }
+  .ph-text h1 {
+    margin-top: 0.5rem;
+  }
+  .proj-loc {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    margin-top: 0.7rem;
+    font-weight: 600;
+    color: var(--gold-600);
+  }
+  .ph-text .lead {
+    margin-top: 0.9rem;
+  }
+  .proj-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .meta-box {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.9rem 1.3rem;
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-sm);
+  }
+  .meta-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .meta-value {
+    font-family: var(--font-display);
+    font-weight: 560;
+    font-size: 1.2rem;
+    color: var(--navy-800);
+  }
+  .proj-cta {
+    margin-top: 1.6rem;
+  }
+  .ph-media {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .proj-body {
+    padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
+  }
+  .proj-back {
+    max-width: var(--container-narrow);
+    margin: 2.5rem auto 0;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line-soft);
+  }
+  @media (max-width: 820px) {
+    .ph-grid {
+      grid-template-columns: 1fr;
+    }
+    .ph-media {
+      order: -1;
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>

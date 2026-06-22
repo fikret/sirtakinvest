@@ -1,0 +1,51 @@
+---
+import Icon from '../Icon.astro';
+interface Props {
+  href: string;
+  title: string;
+  body: string;
+  index?: number;
+}
+const { href, title, body, index = 0 } = Astro.props;
+---
+<a class="offer v2-card reveal" href={href} style={`--d:${index * 80}ms`}>
+  <h3 class="offer-title">
+    <span class="offer-ic"><Icon name="arrow-up-right" size={15} /></span>
+    {title}
+  </h3>
+  <p class="offer-body body text-smoke">{body}</p>
+</a>
+
+<style>
+  .offer {
+    display: block;
+    padding: var(--s-32);
+  }
+  .offer-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 1.5rem; /* 24px */
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .offer-ic {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--bone);
+    display: grid;
+    place-items: center;
+    transition: transform 0.3s var(--ease);
+  }
+  .offer:hover .offer-ic {
+    transform: translate(2px, -2px);
+  }
+  .offer-body {
+    margin: 0;
+  }
+</style>

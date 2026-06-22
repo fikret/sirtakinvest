@@ -1,0 +1,64 @@
+---
+import Icon from '../Icon.astro';
+interface Props {
+  num: string; // "01"
+  label: string;
+  headline?: string;
+  align?: 'left' | 'center';
+}
+const { num, label, headline, align = 'left' } = Astro.props;
+---
+<div class="sec-head">
+  <div class="sec-row">
+    <span class="sec-left">
+      <span class="sec-ic"><Icon name="arrow-down" size={15} /></span>
+      <span class="sec-name">{label}</span>
+    </span>
+    <span class="sec-num mono">({num})</span>
+  </div>
+  <hr class="hairline" />
+  {headline && <h2 class={`sec-headline heading ${align === 'center' ? 'is-center' : ''}`}>{headline}</h2>}
+</div>
+
+<style>
+  .sec-head {
+    margin-bottom: var(--s-48);
+  }
+  .sec-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .sec-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--ink);
+  }
+  .sec-ic {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--bone);
+  }
+  .sec-num {
+    font-size: 1.125rem;
+    color: var(--ink);
+  }
+  .sec-headline {
+    margin-top: 28px;
+    max-width: 20ch;
+  }
+  .sec-headline.is-center {
+    margin-inline: auto;
+    text-align: center;
+    max-width: 24ch;
+  }
+</style>

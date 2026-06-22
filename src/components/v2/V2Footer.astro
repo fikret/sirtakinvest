@@ -1,0 +1,125 @@
+---
+import Icon from '../Icon.astro';
+import { site, contact, social, whatsappLink } from '../../config/site';
+const year = 2026;
+const links = [
+  { label: 'Hakkımızda', href: '#hakkimizda' },
+  { label: 'Hizmetler', href: '#hizmetler' },
+  { label: 'Sorular', href: '#sorular' },
+  { label: 'Projeler', href: '#projeler' },
+  { label: 'Felsefe', href: '#felsefe' },
+];
+---
+<footer class="v2footer">
+  <div class="v2-container">
+    <hr class="hairline" />
+    <div class="v2footer-grid">
+      <div class="v2footer-brand">
+        <span class="v2-logo">{site.name}</span>
+        <p class="caption text-smoke">{site.tagline}</p>
+      </div>
+
+      <nav class="v2footer-col" aria-label="Bölümler">
+        <span class="v2footer-h mono">BÖLÜMLER</span>
+        {links.map((l) => <a class="caption" href={l.href}>{l.label}</a>)}
+      </nav>
+
+      <div class="v2footer-col">
+        <span class="v2footer-h mono">İLETİŞİM</span>
+        <a class="caption" href={contact.phoneHref}>{contact.phoneDisplay}</a>
+        <a class="caption" href={`mailto:${contact.email}`}>{contact.email}</a>
+        <a class="caption" href={whatsappLink} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+
+      <div class="v2footer-col">
+        <span class="v2footer-h mono">SOSYAL</span>
+        <div class="v2footer-social">
+          {
+            social.map((s) => (
+              <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name}>
+                <Icon name={s.icon} size={18} />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="v2footer-bottom">
+      <span class="caption text-smoke">© {year} {site.name}</span>
+      <span class="caption text-smoke">Yunanistan · Golden Visa</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .v2footer {
+    padding-block: var(--s-64) var(--s-48);
+  }
+  .v2footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 40px 24px;
+    padding-block: var(--s-48);
+  }
+  .v2-logo {
+    font-weight: 500;
+    font-size: 1.1875rem;
+    color: var(--ink);
+  }
+  .v2footer-brand p {
+    margin-top: 10px;
+    max-width: 34ch;
+  }
+  .v2footer-col {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+  .v2footer-h {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--mist);
+  }
+  .v2footer-col a {
+    color: var(--smoke);
+    transition: color 0.2s var(--ease);
+  }
+  .v2footer-col a:hover {
+    color: var(--ink);
+  }
+  .v2footer-social {
+    display: flex;
+    gap: 8px;
+  }
+  .v2footer-social a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--mist);
+    color: var(--ink);
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .v2footer-social a:hover {
+    border-color: var(--ink);
+    background: var(--ash);
+  }
+  .v2footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: var(--s-24);
+    border-top: 1px solid var(--ash);
+  }
+  @media (max-width: 760px) {
+    .v2footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .v2footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

@@ -1,0 +1,167 @@
+---
+import Icon from '../Icon.astro';
+import { site } from '../../config/site';
+
+const links = [
+  { label: 'Hakkımızda', href: '#hakkimizda' },
+  { label: 'Hizmetler', href: '#hizmetler' },
+  { label: 'Sorular', href: '#sorular' },
+  { label: 'Projeler', href: '#projeler' },
+  { label: 'Felsefe', href: '#felsefe' },
+];
+---
+<header class="v2nav" data-v2nav>
+  <div class="v2-container v2nav-inner">
+    <a class="v2-logo" href="#top">{site.name}</a>
+
+    <nav class="v2nav-links" aria-label="Bölümler">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <div class="v2nav-right">
+      <a class="btn-ember v2nav-cta" href="#iletisim">Toplantı Planla</a>
+      <button class="v2-burger" data-v2burger aria-label="Menü" aria-expanded="false" aria-controls="v2-menu">
+        <Icon name="menu" size={24} />
+      </button>
+    </div>
+  </div>
+
+  <div class="v2-mobile" id="v2-menu" data-v2menu hidden>
+    <nav aria-label="Mobil bölümler">
+      {links.map((l) => <a href={l.href} data-v2close>{l.label}</a>)}
+      <a class="btn-ember" href="#iletisim" data-v2close>Toplantı Planla</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .v2nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--bone) 88%, transparent);
+    backdrop-filter: blur(8px);
+    transition: border-color 0.3s var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+  .v2nav[data-scrolled] {
+    border-bottom-color: var(--mist);
+  }
+  .v2nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 72px;
+  }
+  .v2-logo {
+    font-weight: 500;
+    font-size: 1.1875rem; /* 19px */
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .v2nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .v2nav-links a {
+    font-size: 1rem;
+    color: var(--smoke);
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.2s var(--ease);
+  }
+  .v2nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease);
+  }
+  .v2nav-links a:hover {
+    color: var(--ink);
+  }
+  .v2nav-links a:hover::after {
+    transform: scaleX(1);
+  }
+  .v2nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .v2-burger {
+    display: none;
+    background: none;
+    border: 1px solid var(--mist);
+    border-radius: 12px;
+    padding: 6px;
+    color: var(--ink);
+  }
+  .v2-mobile {
+    display: none;
+    border-top: 1px solid var(--mist);
+    padding: 16px clamp(20px, 5vw, 40px) 28px;
+  }
+  .v2-mobile nav {
+    display: grid;
+    gap: 4px;
+  }
+  .v2-mobile nav a {
+    padding: 14px 4px;
+    font-size: 1.125rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ash);
+  }
+  .v2-mobile nav a.btn-ember {
+    margin-top: 16px;
+    justify-content: center;
+    border-bottom: 0;
+  }
+
+  @media (max-width: 920px) {
+    .v2nav-links,
+    .v2nav-cta {
+      display: none;
+    }
+    .v2-burger {
+      display: grid;
+      place-items: center;
+    }
+    .v2-mobile[data-open] {
+      display: block;
+      animation: v2-rise 0.3s var(--ease);
+    }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector('[data-v2nav]');
+  const burger = document.querySelector('[data-v2burger]');
+  const menu = document.querySelector('[data-v2menu]');
+  const open = (o: boolean) => {
+    if (o) {
+      menu?.setAttribute('data-open', '');
+      menu?.removeAttribute('hidden');
+    } else {
+      menu?.removeAttribute('data-open');
+      menu?.setAttribute('hidden', '');
+    }
+    burger?.setAttribute('aria-expanded', String(o));
+  };
+  burger?.addEventListener('click', () => open(!menu?.hasAttribute('data-open')));
+  document.querySelectorAll('[data-v2close]').forEach((a) => a.addEventListener('click', () => open(false)));
+
+  const onScroll = () => {
+    if (window.scrollY > 8) nav?.setAttribute('data-scrolled', '');
+    else nav?.removeAttribute('data-scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

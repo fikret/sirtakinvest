@@ -1,0 +1,59 @@
+---
+import Icon from '../Icon.astro';
+interface Props {
+  href: string;
+  num: string;
+  question: string;
+  spot: string;
+  index?: number;
+}
+const { href, num, question, spot, index = 0 } = Astro.props;
+---
+<a class="qcard v2-card reveal" href={href} style={`--d:${index * 60}ms`}>
+  <span class="q-num mono">({num})</span>
+  <h3 class="q-title subheading">{question}</h3>
+  <p class="q-spot caption text-smoke">{spot}</p>
+  <span class="q-more caption">
+    Devamını oku <Icon name="arrow-right" size={15} />
+  </span>
+</a>
+
+<style>
+  .qcard {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: var(--s-24);
+    min-height: 100%;
+  }
+  .q-num {
+    font-size: 0.9rem;
+    color: var(--mist);
+  }
+  .q-title {
+    color: var(--ink);
+    margin: 0;
+  }
+  .q-spot {
+    margin: 0;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .q-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  .q-more :global(svg) {
+    transition: transform 0.3s var(--ease);
+  }
+  .qcard:hover .q-more :global(svg) {
+    transform: translateX(4px);
+  }
+</style>

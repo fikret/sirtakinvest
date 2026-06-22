@@ -1,0 +1,62 @@
+---
+import V2Placeholder from './V2Placeholder.astro';
+interface Props {
+  href: string;
+  name: string;
+  desc: string;
+  meta?: string; // örn. lokasyon ya da fiyat
+  label?: string; // placeholder seed
+}
+const { href, name, desc, meta, label } = Astro.props;
+---
+<a class="story" href={href}>
+  <div class="story-media">
+    <V2Placeholder label={label ?? name} />
+  </div>
+  <div class="story-body">
+    {meta && <span class="story-meta caption text-smoke">{meta}</span>}
+    <h3 class="story-name">{name}</h3>
+    <p class="story-desc caption text-smoke">{desc}</p>
+  </div>
+</a>
+
+<style>
+  .story {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--r-card);
+  }
+  .story-media {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-card);
+    overflow: hidden;
+    border: 1px solid var(--mist);
+    transition: border-color 0.3s var(--ease);
+  }
+  .story:hover .story-media {
+    border-color: var(--ink);
+  }
+  .story-body {
+    padding: 16px 4px 4px;
+    display: grid;
+    gap: 6px;
+  }
+  .story-meta {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+  }
+  .story-name {
+    font-size: 1.125rem; /* 18px */
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .story-desc {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

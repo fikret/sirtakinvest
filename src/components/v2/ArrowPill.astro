@@ -1,0 +1,17 @@
+---
+import Icon from '../Icon.astro';
+interface Props {
+  href: string;
+  label: string;
+  icon?: string;
+  external?: boolean;
+  class?: string;
+}
+const { href, label, icon = 'arrow-right', external = false, class: className = '' } = Astro.props;
+const rel = external ? 'noopener noreferrer' : undefined;
+const target = external ? '_blank' : undefined;
+---
+<a class={`arrow-pill ${className}`} href={href} target={target} rel={rel}>
+  <span class="pill-ic"><Icon name={icon} size={16} /></span>
+  <span>{label}</span>
+</a>

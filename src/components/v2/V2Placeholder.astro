@@ -1,0 +1,63 @@
+---
+/**
+ * (dot)connect temalı yer tutucu: ash zemin + charcoal monoline "düğüm ağı".
+ * Gölge yok, sınır odaklı. Ember varsayılan olarak KAPALI ("viewport başına tek
+ * ember" kuralı) — yalnızca tek başına görünen feature blokları için `ember`.
+ */
+interface Props {
+  label?: string;
+  ember?: boolean;
+  class?: string;
+}
+const { label = '', ember = false, class: className = '' } = Astro.props;
+
+let h = 2166136261;
+for (const ch of label || 'dotconnect') h = (Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0);
+const rnd = (i: number) => (((h >> (i * 3)) & 0xff) / 255);
+
+// 5 düğüm konumu (deterministik), birbirine bağlı
+const nodes = Array.from({ length: 5 }, (_, i) => ({
+  x: 60 + rnd(i) * 280,
+  y: 50 + rnd(i + 5) * 200,
+  r: 3 + rnd(i + 2) * 4,
+}));
+const emberIdx = Math.floor(rnd(9) * nodes.length);
+---
+<div class={`v2-ph ${className}`} aria-hidden="true">
+  <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="presentation">
+    <rect width="400" height="300" fill="var(--ash)" />
+    <g stroke="var(--ink)" stroke-width="1" opacity="0.5">
+      {nodes.map((n, i) => i < nodes.length - 1 && <line x1={n.x} y1={n.y} x2={nodes[i + 1].x} y2={nodes[i + 1].y} />)}
+      <line x1={nodes[0].x} y1={nodes[0].y} x2={nodes[nodes.length - 1].x} y2={nodes[nodes.length - 1].y} />
+    </g>
+    {
+      nodes.map((n, i) => (
+        <circle
+          cx={n.x}
+          cy={n.y}
+          r={n.r}
+          fill={ember && i === emberIdx ? 'var(--ember)' : 'var(--ink)'}
+        />
+      ))
+    }
+    {
+      [...Array(7)].map((_, i) => (
+        <circle cx={30 + i * 52} cy={270} r="1.6" fill="var(--ink)" opacity="0.28" />
+      ))
+    }
+  </svg>
+</div>
+
+<style>
+  .v2-ph {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    background: var(--ash);
+  }
+  .v2-ph svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>

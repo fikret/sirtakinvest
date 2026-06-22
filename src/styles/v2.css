@@ -1,10 +1,52 @@
 /* ═══════════════════════════════════════════════════════════════════
-   v2 — YENİ TASARIM (yapım aşamasında)
-   Bu dosya, mevcut canlı siteden (global.css) tamamen BAĞIMSIZDIR.
-   Yeni tasarım sistemi (renkler, tipografi, bileşenler) buraya kurulacak;
-   böylece /v2/ üzerinde yapılan hiçbir değişiklik kök siteyi etkilemez.
+   v2 — (dot)connect tasarım sistemi
+   "Swiss mühendislik bluepr int'i + tek kıvılcım (ember)"
+   Bone canvas (#fcfbf8) · Charcoal ink (#001011) · Ember (#fd5321)
+   Yalnızca V2Layout tarafından yüklenir → kök site (global.css) ETKİLENMEZ.
+   Font: Geist (AeonikPro yerine) + Geist Mono (sayısal etiketler).
    ═══════════════════════════════════════════════════════════════════ */
 
+:root {
+  /* Renkler */
+  --bone: #fcfbf8;
+  --ink: #001011;
+  --smoke: #0f1e1f;
+  --ash: #ededea;
+  --mist: #c1c4c2;
+  --ember: #fd5321;
+  --signal: #007aff;
+
+  /* Tipografi */
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* Boşluk (8px tabanlı) */
+  --s-8: 8px;
+  --s-16: 16px;
+  --s-24: 24px;
+  --s-32: 32px;
+  --s-48: 48px;
+  --s-64: 64px;
+  --s-72: 72px;
+  --s-80: 80px;
+  --s-96: 96px;
+  --s-160: 160px;
+
+  /* Yarıçap */
+  --r-badge: 8px;
+  --r-card: 20px;
+  --r-button: 24px;
+  --r-link: 44px;
+  --r-pill: 48px;
+
+  /* Düzen */
+  --maxw: 1200px;
+  --section-gap: clamp(64px, 4rem + 4vw, 96px);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Reset ─────────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -15,11 +57,21 @@
 }
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 body {
   min-height: 100vh;
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  font-feature-settings: 'dlig' 1, 'ss02' 1, 'ss08' 1;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 img,
 svg,
@@ -31,55 +83,246 @@ a {
   color: inherit;
   text-decoration: none;
 }
+button {
+  font: inherit;
+  cursor: pointer;
+}
+::selection {
+  background: var(--ember);
+  color: var(--bone);
+}
 
-/* — Geçici placeholder stilleri (yeni tasarım gelince kaldırılacak) — */
-.v2-placeholder {
-  min-height: 100vh;
+/* ── Tipografi ölçeği ──────────────────────────────────────────── */
+.display {
+  font-weight: 500;
+  font-size: clamp(2.9rem, 1.2rem + 6.6vw, 6.3rem); /* →101px */
+  line-height: 0.86;
+  letter-spacing: -0.025em;
+}
+.heading-lg {
+  font-weight: 500;
+  font-size: clamp(2.4rem, 1.6rem + 3.6vw, 4.5rem); /* →72px */
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+}
+.heading {
+  font-weight: 500;
+  font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.25rem); /* →36px */
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+}
+.heading-sm {
+  font-weight: 500;
+  font-size: clamp(1.6rem, 1.35rem + 1vw, 2rem); /* →32px */
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.subheading {
+  font-weight: 500;
+  font-size: 1.5rem; /* 24px */
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+}
+.body {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+.caption {
+  font-size: 1rem; /* 16px */
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: normal;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* ── Düzen yardımcıları ────────────────────────────────────────── */
+.v2-container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 40px);
+}
+.v2-section {
+  padding-block: var(--section-gap);
+}
+.text-smoke {
+  color: var(--smoke);
+}
+.ember-text {
+  color: var(--ember);
+}
+
+/* ── Hairline ─────────────────────────────────────────────────── */
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: var(--mist);
+  border: 0;
+}
+
+/* ── Düğmeler ─────────────────────────────────────────────────── */
+/* Ember filled — yalnızca birincil dönüşüm (header + CTA) */
+.btn-ember {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ember);
+  color: var(--bone);
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: var(--r-button);
+  transition: transform 0.25s var(--ease), filter 0.25s var(--ease);
+}
+.btn-ember:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+/* Arrow pill — koyu dolgu + dairesel ok ikonu (ikincil) */
+.arrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--ink);
+  color: var(--bone);
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  padding: 6px 22px 6px 6px;
+  border: 0;
+  border-radius: var(--r-link);
+  transition: transform 0.25s var(--ease), background 0.25s var(--ease);
+}
+.arrow-pill .pill-ic {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bone);
+  color: var(--ink);
   display: grid;
   place-items: center;
-  padding: 2rem;
-  text-align: center;
-  color: #e9eef3;
-  background:
-    radial-gradient(900px 500px at 80% -10%, rgba(60, 110, 160, 0.35), transparent 60%),
-    linear-gradient(160deg, #0e1822, #060b12);
+  transition: transform 0.3s var(--ease);
 }
-.v2-placeholder .inner {
-  max-width: 560px;
-  display: grid;
-  gap: 1rem;
-  justify-items: center;
+.arrow-pill:hover {
+  transform: translateY(-2px);
 }
-.v2-placeholder .badge {
-  font-size: 0.72rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: #8fb3d6;
-  border: 1px solid rgba(143, 179, 214, 0.4);
-  padding: 0.4em 1em;
-  border-radius: 999px;
+.arrow-pill:hover .pill-ic {
+  transform: translateX(3px);
 }
-.v2-placeholder h1 {
-  font-size: clamp(2rem, 1.4rem + 3vw, 3.4rem);
-  line-height: 1.05;
-  font-weight: 650;
+
+/* Ghost — signal blue outline (üçüncül) */
+.ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--signal);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 11px 24px;
+  border: 1px solid var(--signal);
+  border-radius: var(--r-button);
+  transition: background 0.25s var(--ease);
 }
-.v2-placeholder p {
-  color: #aebeca;
-  line-height: 1.6;
+.ghost-btn:hover {
+  background: rgba(0, 122, 255, 0.06);
 }
-.v2-placeholder code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.9em;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 0.15em 0.5em;
-  border-radius: 6px;
-  color: #e9eef3;
+
+/* ── Badge ────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--smoke);
+  background: var(--bone);
+  border: 1px solid var(--mist);
+  border-radius: var(--r-badge);
+  padding: 4px 10px;
 }
-.v2-placeholder .back {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #8fb3d6;
-  border-bottom: 1px solid rgba(143, 179, 214, 0.5);
-  padding-bottom: 2px;
+
+/* ── Kart temeli (sınır odaklı, gölge YOK) ─────────────────────── */
+.v2-card {
+  background: var(--bone);
+  border: 1px solid var(--mist);
+  border-radius: var(--r-card);
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.v2-card:hover {
+  border-color: var(--ink);
+}
+
+/* ── Erişilebilirlik ───────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 200;
+  background: var(--ink);
+  color: var(--bone);
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition: top 0.2s var(--ease);
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ── Reveal animasyonu ─────────────────────────────────────────── */
+@keyframes v2-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.reveal {
+  opacity: 0;
+  animation: v2-rise 0.7s var(--ease) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+  }
 }

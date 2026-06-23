@@ -70,7 +70,7 @@ const { slides } = Astro.props;
     scroll-snap-align: start;
     min-height: clamp(420px, 60vh, 560px);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     overflow: hidden;
   }
   .hs-bg {
@@ -81,12 +81,7 @@ const { slides } = Astro.props;
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      105deg,
-      rgba(7, 26, 44, 0.86) 0%,
-      rgba(7, 26, 44, 0.6) 42%,
-      rgba(7, 26, 44, 0.2) 100%
-    );
+    background: linear-gradient(180deg, rgba(7, 26, 44, 0.5) 0%, rgba(7, 26, 44, 0.78) 100%);
   }
   .hs-content {
     position: relative;
@@ -97,8 +92,12 @@ const { slides } = Astro.props;
     padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
   }
   .hs-inner {
-    max-width: min(620px, 100%);
+    max-width: min(720px, 100%);
     min-width: 0;
+    margin-inline: auto;
+    text-align: center;
+    display: grid;
+    justify-items: center;
     color: var(--paper);
   }
   .hs-eyebrow {

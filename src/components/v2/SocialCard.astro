@@ -1,0 +1,106 @@
+---
+import Icon from '../Icon.astro';
+import V2Placeholder from './V2Placeholder.astro';
+import { withBase } from '../../lib/url';
+
+interface Props {
+  href: string;
+  title: string;
+  label?: string; // placeholder deseni için (görsel yoksa)
+  image?: string; // public/ altındaki kapak görseli yolu, örn. '/instagram/ig1.jpg'
+  kind: 'instagram' | 'youtube';
+}
+const { href, title, label, image, kind } = Astro.props;
+const badgeIcon = kind === 'youtube' ? 'play' : 'instagram';
+---
+<a class="social-card" href={href} target="_blank" rel="noopener noreferrer">
+  <div class={`sc-media sc-media--${kind}`}>
+    {
+      image ? (
+        <img src={withBase(image)} alt={title} loading="lazy" class="sc-img" />
+      ) : (
+        <V2Placeholder label={label ?? title} />
+      )
+    }
+    <span class={`sc-badge sc-badge--${kind}`} aria-hidden="true">
+      <Icon name={badgeIcon} size={18} />
+    </span>
+  </div>
+  <div class="sc-body">
+    <span class="sc-kind caption text-smoke">{kind === 'youtube' ? 'YouTube' : 'Instagram'}</span>
+    <h3 class="sc-title">{title}</h3>
+  </div>
+</a>
+
+<style>
+  .social-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--r-card);
+  }
+  .sc-media {
+    position: relative;
+    border-radius: var(--r-card);
+    overflow: hidden;
+    border: 1px solid var(--mist);
+    transition: border-color 0.3s var(--ease);
+  }
+  /* Instagram gönderileri dikey (4:5), YouTube kapakları yatay (16:9) */
+  .sc-media--instagram {
+    aspect-ratio: 4 / 5;
+  }
+  .sc-media--youtube {
+    aspect-ratio: 16 / 9;
+  }
+  .social-card:hover .sc-media {
+    border-color: var(--ink);
+  }
+  .sc-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s var(--ease);
+  }
+  .social-card:hover .sc-img {
+    transform: scale(1.03);
+  }
+  .sc-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--bone);
+    color: var(--ink);
+    border: 1px solid var(--mist);
+  }
+  .sc-badge--youtube {
+    background: var(--ember);
+    color: var(--bone);
+    border-color: var(--ember);
+  }
+  .sc-body {
+    padding: 16px 4px 4px;
+    display: grid;
+    gap: 4px;
+  }
+  .sc-kind {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+  }
+  .sc-title {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

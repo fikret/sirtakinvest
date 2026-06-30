@@ -16,7 +16,9 @@ const links = [
     <hr class="hairline" />
     <div class="v2footer-grid">
       <div class="v2footer-brand">
-        <span class="v2-logo">{site.name}</span>
+        <a class="v2-logo" href={withBase('/')} aria-label={site.name}>
+          <img src={withBase('/sirtakinvest-logo.png')} alt={site.name} width="1850" height="578" />
+        </a>
         <p class="caption text-smoke">{site.tagline}</p>
       </div>
 
@@ -64,9 +66,13 @@ const links = [
     padding-block: var(--s-48);
   }
   .v2-logo {
-    font-weight: 500;
-    font-size: 1.1875rem;
-    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+  }
+  .v2-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
   }
   .v2footer-brand p {
     margin-top: 10px;

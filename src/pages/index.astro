@@ -5,18 +5,19 @@ import SectionHeader from '../components/v2/SectionHeader.astro';
 import OfferCard from '../components/v2/OfferCard.astro';
 import QuestionCard from '../components/v2/QuestionCard.astro';
 import StoryCard from '../components/v2/StoryCard.astro';
-import CtaBanner from '../components/v2/CtaBanner.astro';
+import SocialCard from '../components/v2/SocialCard.astro';
+import ZoomScheduler from '../components/ZoomScheduler.astro';
 import Icon from '../components/Icon.astro';
 import { getArticles, getProjects, articleHref, projectHref, categoryHref } from '../lib/content';
 import { withBase } from '../lib/url';
-import { site, categories } from '../config/site';
+import { site, categories, instagramPosts, youtubeVideos } from '../config/site';
 import type { CategoryKey } from '../config/site';
 
 const articles = await getArticles();
 const projects = await getProjects();
 
-const offerKeys: CategoryKey[] = ['vize-kolayligi', 'yatirim-firsati', 'aile-ve-haklar', 'adalarda-yazlik'];
-const questions = articles.slice(0, 6);
+const offerKeys: CategoryKey[] = ['vize-kolayligi', 'yatirim-firsati', 'adalarda-yazlik'];
+const questions = articles.slice(0, 9);
 
 const stats = [
   { v: '10+', l: 'yıl saha tecrübesi' },
@@ -40,34 +41,8 @@ const stats = [
         doğru hukuki yapıyla.
       </p>
       <div class="hero-cta">
-        <ArrowPill href={withBase('/toplanti-planla')} label="Tanışma toplantısı" />
-        <a class="ghost-btn" href="#sorular">Sıkça sorulanlar</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- HAKKIMIZDA + İSTATİSTİK -->
-  <section id="hakkimizda" class="v2-section">
-    <div class="v2-container">
-      <SectionHeader num="00" label="Hakkımızda" />
-      <div class="about-grid">
-        <h2 class="about-statement heading-sm">
-          {site.name}, Yunanistan Golden Visa sürecinde 10 yılı aşkın saha tecrübesiyle yanınızda.
-          Bizim için oturum izni, kârlı bir gayrimenkul yatırımının yanındaki en güzel hediyedir.
-        </h2>
-        <div class="stats">
-          {
-            stats.map((s, i) => (
-              <div class="stat reveal" style={`--d:${i * 70}ms`}>
-                <span class="stat-v heading-sm">{s.v}</span>
-                <span class="stat-l caption text-smoke">{s.l}</span>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-      <div class="about-more">
-        <a class="ghost-btn" href={withBase('/hakkinda')}>Hakkımızda <Icon name="arrow-right" size={15} /></a>
+        <ArrowPill href={withBase('/toplanti-planla')} label="Tanışma Toplantısı Planla" />
+        <a class="ghost-btn" href="#sorular">Sıkça Sorulan Sorular</a>
       </div>
     </div>
   </section>
@@ -75,7 +50,7 @@ const stats = [
   <!-- HİZMETLER (OFFER) -->
   <section id="hizmetler" class="v2-section">
     <div class="v2-container">
-      <SectionHeader num="01" label="Hizmetler" headline="Tek yatırım, dört yönde güvence." />
+      <SectionHeader num="01" label="Hizmetler" headline="Tek yatırım, üç yönde güvence." />
       <div class="offer-grid">
         {
           offerKeys.map((key, i) => (
@@ -114,11 +89,83 @@ const stats = [
     </div>
   </section>
 
+  <!-- HAKKIMIZDA (genişleyebilir) + SOSYAL İÇERİK -->
+  <section id="hakkimizda" class="v2-section">
+    <div class="v2-container">
+      <SectionHeader num="03" label="Hakkımızda" />
+      <div class="about-grid">
+        <div class="about-text">
+          <h2 class="about-statement heading-sm">
+            {site.name}, Yunanistan Golden Visa sürecinde 10 yılı aşkın saha tecrübesiyle yanınızda.
+            Bizim için oturum izni, kârlı bir gayrimenkul yatırımının yanındaki en güzel hediyedir.
+          </h2>
+          <details class="about-expand">
+            <summary>
+              <span class="ax-label">Devamını oku</span>
+              <span class="ax-chev"><Icon name="arrow-down" size={15} /></span>
+            </summary>
+            <div class="about-long body text-smoke">
+              <p>
+                Yunanistan, kriz günlerini çoktan geride bıraktı; bugün Avrupa'nın en diri yatırım
+                merkezlerinden biri. Ancak bir yatırımcı olarak asıl mesele sadece oturum izni almak
+                değil, paranızın karşılığını gerçekten almaktır. Doğru bir stratejiyle yapılan yatırım
+                size sadece bir “kart” kazandırmaz; yarın satmak istediğinizde yerel halkın bile talip
+                olacağı, gerçek değeri olan bir mülk kazandırır.
+              </p>
+              <p>
+                Golden Visa'yı tek bir kişinin aldığı oturum kartı olarak değil; eşinizi,
+                çocuklarınızı, anne-babanızı ve eşinizin anne-babasını kapsayan bir aile koruma
+                kalkanı olarak görüyoruz. Her ailenin yapısı farklıdır; bu yüzden yatırımı, olası
+                senaryoları da düşünerek baştan doğru kurgularız.
+              </p>
+            </div>
+          </details>
+          <a class="ghost-btn about-link" href={withBase('/hakkinda')}>
+            Hakkımızda sayfası <Icon name="arrow-right" size={15} />
+          </a>
+        </div>
+        <div class="stats">
+          {
+            stats.map((s, i) => (
+              <div class="stat reveal" style={`--d:${i * 70}ms`}>
+                <span class="stat-v heading-sm">{s.v}</span>
+                <span class="stat-l caption text-smoke">{s.l}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="social-rows">
+        <div class="social-row">
+          <h3 class="social-h mono">INSTAGRAM</h3>
+          <div class="social-grid">
+            {
+              instagramPosts.map((p) => (
+                <SocialCard href={p.href} title={p.title} image={p.image} kind="instagram" />
+              ))
+            }
+          </div>
+        </div>
+        <div class="social-row">
+          <h3 class="social-h mono">YOUTUBE</h3>
+          <div class="social-grid">
+            {
+              youtubeVideos.map((v) => (
+                <SocialCard href={v.href} title={v.title} label={v.label} kind="youtube" />
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PROJELER (CAROUSEL) -->
   <section id="projeler" class="v2-section">
     <div class="v2-container">
       <div class="proj-head">
-        <SectionHeader num="03" label="Projeler" />
+        <SectionHeader num="04" label="Projeler" />
         <div class="proj-nav">
           <button class="caro-btn" data-prev aria-label="Önceki"><Icon name="arrow-left" size={18} /></button>
           <button class="caro-btn" data-next aria-label="Sonraki"><Icon name="arrow-right" size={18} /></button>
@@ -147,26 +194,21 @@ const stats = [
     </div>
   </section>
 
-  <!-- FELSEFE -->
-  <section id="felsefe" class="v2-section">
-    <div class="v2-container">
-      <SectionHeader num="04" label="Felsefe" />
-      <div class="philo">
-        <h2 class="philo-line heading-lg">İyi bir yatırımın sırrı, alış fiyatında saklıdır.</h2>
-        <p class="philo-body body text-smoke">
-          Sadece vize limitini doldurmak için şişirilmiş fiyata alınan mülk, ileride hem düşük kira
-          getirir hem de zor satılır. Biz mülkü gerçek piyasa değerinden aldırırız; böylece kira
-          geliriniz piyasa seviyesinde oluşur ve gerektiğinde değerinde satarsınız. Oturum izni,
-          doğru kurgulanmış bir yatırımın doğal sonucudur.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- İLETİŞİM / CTA -->
+  <!-- İLETİŞİM / TOPLANTI PLANLA -->
   <section id="iletisim" class="v2-section">
     <div class="v2-container">
-      <CtaBanner />
+      <SectionHeader
+        num="05"
+        label="İletişim"
+        headline="Yüz yüze tanışma toplantısından randevu alın."
+      />
+      <p class="cta-intro body text-smoke">
+        Golden Visa yolculuğunuza başlamadan önce ihtiyaçlarınızı ve doğru yatırım stratejisini
+        birlikte konuşalım. Aşağıdaki takvimden size uygun zamanı seçin.
+      </p>
+      <div class="home-scheduler">
+        <ZoomScheduler />
+      </div>
     </div>
   </section>
 </V2Layout>
@@ -196,6 +238,23 @@ const stats = [
     margin-top: 8px;
   }
 
+  /* OFFER (3 sütun) */
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  /* SORULAR (3 satır) */
+  .q-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .q-all {
+    margin-top: 40px;
+  }
+
   /* HAKKIMIZDA */
   .about-grid {
     display: grid;
@@ -203,9 +262,55 @@ const stats = [
     gap: 48px;
     align-items: start;
   }
+  .about-text {
+    display: grid;
+    gap: 24px;
+    align-content: start;
+  }
   .about-statement {
     max-width: 28ch;
     color: var(--ink);
+  }
+  .about-expand {
+    width: 100%;
+  }
+  .about-expand summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    cursor: pointer;
+    list-style: none;
+    color: var(--signal);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 11px 24px;
+    border: 1px solid var(--signal);
+    border-radius: var(--r-button);
+    transition: background 0.25s var(--ease);
+  }
+  .about-expand summary::-webkit-details-marker {
+    display: none;
+  }
+  .about-expand summary:hover {
+    background: rgba(0, 122, 255, 0.06);
+  }
+  .ax-chev {
+    display: inline-grid;
+    place-items: center;
+    transition: transform 0.25s var(--ease);
+  }
+  .about-expand[open] .ax-chev {
+    transform: rotate(180deg);
+  }
+  .about-long {
+    margin-top: 20px;
+    display: grid;
+    gap: 1em;
+    max-width: 64ch;
+  }
+  .about-link {
+    width: fit-content;
   }
   .stats {
     display: grid;
@@ -228,25 +333,23 @@ const stats = [
   .stat-l {
     text-transform: lowercase;
   }
-  .about-more {
-    margin-top: 40px;
-  }
 
-  /* OFFER */
-  .offer-grid {
+  /* SOSYAL İÇERİK SATIRLARI */
+  .social-rows {
+    margin-top: 64px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    gap: 48px;
   }
-
-  /* SORULAR */
-  .q-grid {
+  .social-h {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    color: var(--mist);
+    margin-bottom: 20px;
+  }
+  .social-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-  }
-  .q-all {
-    margin-top: 40px;
   }
 
   /* PROJELER */
@@ -297,21 +400,13 @@ const stats = [
     scroll-snap-align: start;
   }
 
-  /* FELSEFE */
-  .philo {
-    background: var(--ash);
-    border: 1px solid var(--mist);
-    border-radius: var(--r-card);
-    padding: clamp(32px, 4vw, 64px);
-    display: grid;
-    gap: 28px;
+  /* İLETİŞİM / SCHEDULER */
+  .cta-intro {
+    max-width: 60ch;
+    margin-bottom: 40px;
   }
-  .philo-line {
-    max-width: 18ch;
-    color: var(--ink);
-  }
-  .philo-body {
-    max-width: 64ch;
+  .home-scheduler {
+    max-width: 920px;
   }
 
   /* RESPONSIVE */
@@ -320,6 +415,7 @@ const stats = [
       grid-template-columns: 1fr;
       gap: 32px;
     }
+    .offer-grid,
     .q-grid {
       grid-template-columns: 1fr 1fr;
     }
@@ -327,7 +423,8 @@ const stats = [
   @media (max-width: 640px) {
     .offer-grid,
     .q-grid,
-    .stats {
+    .stats,
+    .social-grid {
       grid-template-columns: 1fr;
     }
     .proj-item {

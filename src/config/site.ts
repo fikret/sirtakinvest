@@ -35,8 +35,41 @@ export const whatsappLink = `https://wa.me/${contact.whatsappNumber}?text=${enco
 /** Sosyal medya — PLACEHOLDER URL'ler. Gerçek hesaplarınızla değiştirin. */
 export const social = [
   { name: 'Facebook', href: 'https://facebook.com/', icon: 'facebook' },
-  { name: 'Instagram', href: 'https://instagram.com/', icon: 'instagram' },
+  { name: 'Instagram', href: 'https://www.instagram.com/sirtakinvest', icon: 'instagram' },
   { name: 'YouTube', href: 'https://youtube.com/', icon: 'youtube' },
+] as const;
+
+/**
+ * Ana sayfa "Hakkımızda" bölümündeki Instagram içerik kartları — PLACEHOLDER.
+ * Gerçek gönderi bağlantılarınızı ve başlıklarını buraya yazın (3 öğe).
+ * `label` yer tutucu görselin desenini belirler; gerçek görsel eklenince SocialCard güncellenir.
+ */
+export const instagramPosts = [
+  {
+    title: "Yunanistan'da hem yaşamak hem çalışmak istiyorsanız",
+    href: 'https://www.instagram.com/sirtakinvest/p/CnQ2GipKCQT/',
+    image: '/instagram/ig1.jpg',
+  },
+  {
+    title: 'Anahtar teslim: 150.000 € iş yatırımı',
+    href: 'https://www.instagram.com/sirtakinvest/p/Cn8nn01qbIc/',
+    image: '/instagram/ig2.jpg',
+  },
+  {
+    title: '250.000 € alt limitle katılım için hâlâ zaman var',
+    href: 'https://www.instagram.com/sirtakinvest/p/C5DdaQ3Lmyn/',
+    image: '/instagram/ig3.jpg',
+  },
+] as const;
+
+/**
+ * Ana sayfa "Hakkımızda" bölümündeki YouTube video kartları — PLACEHOLDER.
+ * Gerçek video bağlantılarınızı ve başlıklarını buraya yazın (3 öğe).
+ */
+export const youtubeVideos = [
+  { title: 'YouTube videosu 1', href: 'https://youtube.com/', label: 'YT 1' },
+  { title: 'YouTube videosu 2', href: 'https://youtube.com/', label: 'YT 2' },
+  { title: 'YouTube videosu 3', href: 'https://youtube.com/', label: 'YT 3' },
 ] as const;
 
 /** Üst menü */
@@ -57,7 +90,9 @@ export const nav = [
  * Örnek:
  * export const zoomSchedulerEmbed = `<iframe src="https://...zoom.us/..." width="100%" height="700" frameborder="0"></iframe>`;
  */
-export const zoomSchedulerEmbed = '';
+export const zoomSchedulerEmbed = `<iframe src="https://scheduler.zoom.us/sirtakinvest-dan-manl-k/sirtakinvest-yunanistan-golden-visa-ongorusme?embed=true"
+  title="Sirtakinvest — Yunanistan Golden Visa Ön Görüşme"
+  loading="lazy"></iframe>`;
 
 /** Kategoriler — ana sayfa banner'ları ve /kategori sayfaları bu sıraya göre üretilir. */
 export type CategoryKey =

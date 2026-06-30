@@ -12,18 +12,18 @@ const hasEmbed = zoomSchedulerEmbed.trim().length > 0;
       <span class="zp-key" aria-hidden="true">
         <Icon name="calendar" size={28} />
       </span>
-      <h3>Zoom randevu takvimi buraya gelecek</h3>
-      <p>
+      <h3 class="subheading">Zoom randevu takvimi buraya gelecek</h3>
+      <p class="caption text-smoke">
         Bu alan, Zoom Scheduler embed kodunuz için ayrılmıştır. Kodu eklemek için
         <code>src/config/site.ts</code> dosyasındaki <code>zoomSchedulerEmbed</code> alanına
         (backtick içine) yapıştırmanız yeterli — sayfa otomatik olarak canlı takvimi gösterecektir.
       </p>
       <div class="zp-actions">
-        <a class="btn btn-gold" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+        <a class="btn-ember" href={whatsappLink} target="_blank" rel="noopener noreferrer">
           <Icon name="whatsapp" size={18} />
           WhatsApp ile yaz
         </a>
-        <a class="btn btn-outline" href={contact.phoneHref}>
+        <a class="ghost-btn" href={contact.phoneHref}>
           <Icon name="phone" size={18} />
           {contact.phoneDisplay}
         </a>
@@ -36,10 +36,10 @@ const hasEmbed = zoomSchedulerEmbed.trim().length > 0;
   .zoom-embed {
     width: 100%;
     min-height: 640px;
-    border-radius: var(--radius);
+    border-radius: var(--r-card);
     overflow: hidden;
-    background: var(--white);
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--mist);
+    background: var(--bone);
   }
   .zoom-embed :global(iframe) {
     width: 100%;
@@ -54,9 +54,9 @@ const hasEmbed = zoomSchedulerEmbed.trim().length > 0;
     text-align: center;
     gap: 0.9rem;
     padding: clamp(2.5rem, 2rem + 3vw, 4rem) 1.5rem;
-    border: 1.5px dashed var(--line);
-    border-radius: var(--radius);
-    background: linear-gradient(180deg, var(--white), var(--paper-2));
+    border: 1px dashed var(--mist);
+    border-radius: var(--r-card);
+    background: var(--ash);
   }
   .zp-key {
     display: grid;
@@ -64,25 +64,24 @@ const hasEmbed = zoomSchedulerEmbed.trim().length > 0;
     width: 64px;
     height: 64px;
     border-radius: 18px;
-    color: var(--gold-600);
-    background: var(--gold-100);
-    border: 1px solid rgba(200, 162, 75, 0.4);
+    color: var(--bone);
+    background: var(--ink);
   }
   .zoom-placeholder h3 {
-    color: var(--navy-800);
+    color: var(--ink);
   }
   .zoom-placeholder p {
     max-width: 54ch;
-    color: var(--muted);
-    line-height: 1.6;
+    margin: 0;
   }
   .zoom-placeholder code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: var(--font-mono);
     font-size: 0.85em;
-    background: rgba(13, 43, 69, 0.07);
+    background: var(--bone);
+    border: 1px solid var(--mist);
     padding: 0.1em 0.4em;
     border-radius: 5px;
-    color: var(--navy-800);
+    color: var(--ink);
   }
   .zp-actions {
     display: flex;

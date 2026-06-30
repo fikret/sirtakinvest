@@ -1,9 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import V2Layout from '../../layouts/V2Layout.astro';
 import Icon from '../../components/Icon.astro';
-import PlaceholderImage from '../../components/PlaceholderImage.astro';
-import CTABanner from '../../components/CTABanner.astro';
+import Breadcrumbs from '../../components/v2/Breadcrumbs.astro';
+import V2Placeholder from '../../components/v2/V2Placeholder.astro';
+import CtaBanner from '../../components/v2/CtaBanner.astro';
 import { withBase } from '../../lib/url';
 
 export async function getStaticPaths() {
@@ -15,143 +16,134 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
 ---
-<BaseLayout title={d.title} description={d.summary} type="article">
+<V2Layout title={d.title} description={d.summary} type="article">
   <article>
-    <header class="proj-hero">
-      <div class="container">
-        <nav class="crumbs" aria-label="Konum">
-          <a href={withBase('/')}>Ana Sayfa</a>
-          <span aria-hidden="true">/</span>
-          <a href={withBase('/projeler')}>Projeler</a>
-        </nav>
+    <header class="v2-section proj-hero">
+      <div class="v2-container">
+        <Breadcrumbs
+          items={[
+            { label: 'Ana Sayfa', href: withBase('/') },
+            { label: 'Projeler', href: withBase('/projeler') },
+            { label: d.title },
+          ]}
+        />
         <div class="ph-grid">
           <div class="ph-text">
-            <span class="eyebrow">{d.projectCode}</span>
-            <h1>{d.title}</h1>
-            <p class="proj-loc"><Icon name="pin" size={17} />{d.location}</p>
-            <p class="lead">{d.summary}</p>
+            <span class="badge mono">{d.projectCode}</span>
+            <h1 class="heading ph-title">{d.title}</h1>
+            <p class="proj-loc caption"><Icon name="pin" size={16} />{d.location}</p>
+            <p class="ph-lead body text-smoke">{d.summary}</p>
             <div class="proj-meta">
               <div class="meta-box">
-                <span class="meta-label">Başlangıç Fiyatı</span>
-                <span class="meta-value">{d.priceFrom}</span>
+                <span class="meta-label caption">Başlangıç Fiyatı</span>
+                <span class="meta-value heading-sm">{d.priceFrom}</span>
               </div>
               <div class="meta-box">
-                <span class="meta-label">Durum</span>
-                <span class="meta-value">{d.status}</span>
+                <span class="meta-label caption">Durum</span>
+                <span class="meta-value heading-sm">{d.status}</span>
               </div>
             </div>
-            <a class="btn btn-gold proj-cta" href={withBase('/toplanti-planla')}>
+            <a class="btn-ember proj-cta" href={withBase('/toplanti-planla')}>
               <Icon name="calendar" size={18} />
               Bu Proje İçin Randevu Al
             </a>
           </div>
           <div class="ph-media">
-            <PlaceholderImage label={d.placeholderLabel || d.location} tag={d.projectCode} variant="deep" />
+            <V2Placeholder label={d.placeholderLabel || d.location} ember />
           </div>
         </div>
       </div>
     </header>
 
-    <div class="container proj-body">
-      <div class="prose narrow">
+    <div class="v2-container proj-body">
+      <div class="prose">
         <Content />
       </div>
       <div class="proj-back">
-        <a class="btn btn-outline" href={withBase('/projeler')}>
+        <a class="ghost-btn" href={withBase('/projeler')}>
           <Icon name="arrow-left" size={16} />
           Tüm Projeler
         </a>
       </div>
     </div>
 
-    <div class="container section-tight">
-      <CTABanner />
+    <div class="v2-container proj-cta-wrap">
+      <CtaBanner />
     </div>
   </article>
-</BaseLayout>
+</V2Layout>
 
 <style>
   .proj-hero {
-    padding-block: clamp(1.6rem, 1.2rem + 2vw, 3rem);
-    background: linear-gradient(180deg, var(--paper-2), transparent);
-    border-bottom: 1px solid var(--line-soft);
-  }
-  .crumbs {
-    display: flex;
-    gap: 0.6em;
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 1.6rem;
-  }
-  .crumbs a:hover {
-    color: var(--navy-700);
+    border-bottom: 1px solid var(--mist);
   }
   .ph-grid {
     display: grid;
     grid-template-columns: 1.15fr 1fr;
-    gap: clamp(1.5rem, 1rem + 3vw, 3rem);
+    gap: clamp(24px, 4vw, 56px);
     align-items: center;
+    margin-top: 28px;
   }
-  .ph-text h1 {
-    margin-top: 0.5rem;
+  .ph-title {
+    margin-top: 16px;
   }
   .proj-loc {
     display: inline-flex;
     align-items: center;
-    gap: 0.45em;
-    margin-top: 0.7rem;
-    font-weight: 600;
-    color: var(--gold-600);
+    gap: 8px;
+    margin-top: 12px;
+    color: var(--ember);
+    font-weight: 500;
   }
-  .ph-text .lead {
-    margin-top: 0.9rem;
+  .ph-lead {
+    margin-top: 16px;
+    max-width: 52ch;
   }
   .proj-meta {
     display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
     flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 28px;
   }
   .meta-box {
     display: grid;
-    gap: 0.2rem;
-    padding: 0.9rem 1.3rem;
-    border-radius: var(--radius-sm);
-    background: var(--white);
-    border: 1px solid var(--line-soft);
-    box-shadow: var(--shadow-sm);
+    gap: 4px;
+    padding: 16px 22px;
+    border-radius: var(--r-card);
+    background: var(--bone);
+    border: 1px solid var(--mist);
   }
   .meta-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--muted);
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    color: var(--smoke);
   }
   .meta-value {
-    font-family: var(--font-display);
-    font-weight: 560;
-    font-size: 1.2rem;
-    color: var(--navy-800);
+    color: var(--ink);
   }
   .proj-cta {
-    margin-top: 1.6rem;
+    margin-top: 28px;
   }
   .ph-media {
     aspect-ratio: 4 / 3;
-    border-radius: var(--radius-lg);
+    border-radius: var(--r-card);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--mist);
   }
   .proj-body {
-    padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
+    padding-block: clamp(40px, 5vw, 72px);
   }
   .proj-back {
-    max-width: var(--container-narrow);
-    margin: 2.5rem auto 0;
-    padding-top: 1.6rem;
-    border-top: 1px solid var(--line-soft);
+    max-width: 68ch;
+    margin: 40px auto 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--mist);
   }
-  @media (max-width: 820px) {
+  .proj-cta-wrap {
+    padding-bottom: var(--section-gap);
+  }
+  @media (max-width: 900px) {
     .ph-grid {
       grid-template-columns: 1fr;
     }

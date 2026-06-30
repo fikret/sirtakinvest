@@ -1,52 +1,50 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import V2Layout from '../layouts/V2Layout.astro';
 import Icon from '../components/Icon.astro';
-import MeanderDivider from '../components/MeanderDivider.astro';
 import { withBase } from '../lib/url';
 ---
-<BaseLayout title="Sayfa Bulunamadı" noindex={true}>
-  <section class="nf">
-    <div class="container">
-      <span class="nf-code">404</span>
-      <MeanderDivider />
-      <h1>Aradığınız sayfa bulunamadı</h1>
-      <p class="lead">Bağlantı taşınmış ya da hiç var olmamış olabilir. Buradan devam edebilirsiniz:</p>
+<V2Layout title="Sayfa Bulunamadı" noindex={true}>
+  <section class="v2-section nf">
+    <div class="v2-container">
+      <span class="nf-code display">404</span>
+      <hr class="hairline nf-rule" />
+      <h1 class="heading nf-title">Aradığınız sayfa bulunamadı</h1>
+      <p class="nf-lead body text-smoke">Bağlantı taşınmış ya da hiç var olmamış olabilir. Buradan devam edebilirsiniz:</p>
       <div class="nf-actions">
-        <a class="btn btn-gold" href={withBase('/')}><Icon name="arrow-left" size={16} />Ana Sayfa</a>
-        <a class="btn btn-outline" href={withBase('/blog')}>Tüm Sorular</a>
-        <a class="btn btn-outline" href={withBase('/toplanti-planla')}>Toplantı Planla</a>
+        <a class="btn-ember" href={withBase('/')}><Icon name="arrow-left" size={16} />Ana Sayfa</a>
+        <a class="ghost-btn" href={withBase('/blog')}>Tüm Sorular</a>
+        <a class="ghost-btn" href={withBase('/toplanti-planla')}>Toplantı Planla</a>
       </div>
     </div>
   </section>
-</BaseLayout>
+</V2Layout>
 
 <style>
   .nf {
     text-align: center;
-    padding-block: clamp(4rem, 3rem + 6vw, 8rem);
-    display: grid;
-    place-items: center;
+    padding-block: clamp(64px, 6vw, 128px);
   }
   .nf-code {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(4rem, 3rem + 8vw, 8rem);
+    color: var(--ink);
     line-height: 1;
-    color: var(--navy-800);
   }
-  .nf h1 {
-    margin-top: 1.5rem;
+  .nf-rule {
+    max-width: 200px;
+    margin: 32px auto;
   }
-  .nf .lead {
-    margin-top: 1rem;
+  .nf-title {
+    margin-top: 8px;
+  }
+  .nf-lead {
+    margin-top: 16px;
     max-width: 48ch;
     margin-inline: auto;
   }
   .nf-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.7rem;
+    gap: 12px;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 32px;
   }
 </style>

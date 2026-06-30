@@ -1,38 +1,34 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import V2Layout from '../layouts/V2Layout.astro';
 import Icon from '../components/Icon.astro';
+import PageHero from '../components/v2/PageHero.astro';
 import { withBase } from '../lib/url';
 import { social, whatsappLink } from '../config/site';
 ---
-<BaseLayout
+<V2Layout
   title="Etkinlikler"
   description="Sirtakinvest Golden Visa bilgilendirme webinarları ve yüz yüze tanışma etkinlikleri."
 >
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow">Webinar & Buluşma</span>
-      <h1>Etkinlikler</h1>
-      <p class="lead">
-        Golden Visa bilgilendirme webinarları ve yüz yüze tanışma etkinliklerimizi buradan takip
-        edebilirsiniz.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    badge="WEBINAR & BULUŞMA"
+    title="Etkinlikler"
+    lead="Golden Visa bilgilendirme webinarları ve yüz yüze tanışma etkinliklerimizi buradan takip edebilirsiniz."
+  />
 
-  <section class="section">
-    <div class="container narrow">
+  <section class="v2-section section-top">
+    <div class="v2-container">
       <div class="empty-state">
         <span class="es-icon"><Icon name="calendar" size={30} /></span>
-        <h2>Yaklaşan etkinlik planlanıyor</h2>
-        <p>
+        <h2 class="heading-sm">Yaklaşan etkinlik planlanıyor</h2>
+        <p class="es-text body text-smoke">
           Şu anda yayınlanmış bir etkinlik bulunmuyor. Yeni webinar ve buluşma tarihlerinden ilk siz
           haberdar olmak için bizi sosyal medyada takip edin veya doğrudan yazın.
         </p>
         <div class="es-actions">
-          <a class="btn btn-gold" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+          <a class="btn-ember" href={whatsappLink} target="_blank" rel="noopener noreferrer">
             <Icon name="whatsapp" size={18} />Haberdar Et
           </a>
-          <a class="btn btn-outline" href={withBase('/toplanti-planla')}>
+          <a class="ghost-btn" href={withBase('/toplanti-planla')}>
             <Icon name="calendar" size={18} />Bireysel Toplantı
           </a>
         </div>
@@ -48,19 +44,11 @@ import { social, whatsappLink } from '../config/site';
       </div>
     </div>
   </section>
-</BaseLayout>
+</V2Layout>
 
 <style>
-  .page-hero {
-    padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem) 1.5rem;
-    background: linear-gradient(180deg, var(--paper-2), transparent);
-  }
-  .page-hero h1 {
-    margin-top: 0.6rem;
-  }
-  .page-hero .lead {
-    margin-top: 1rem;
-    max-width: 58ch;
+  .section-top {
+    padding-top: 0;
   }
   .empty-state {
     text-align: center;
@@ -68,9 +56,9 @@ import { social, whatsappLink } from '../config/site';
     justify-items: center;
     gap: 1rem;
     padding: clamp(2.5rem, 2rem + 3vw, 4rem) 1.5rem;
-    border: 1.5px dashed var(--line);
-    border-radius: var(--radius-lg);
-    background: linear-gradient(180deg, var(--white), var(--paper-2));
+    border: 1px dashed var(--mist);
+    border-radius: var(--r-card);
+    background: var(--ash);
   }
   .es-icon {
     display: grid;
@@ -78,17 +66,14 @@ import { social, whatsappLink } from '../config/site';
     width: 70px;
     height: 70px;
     border-radius: 20px;
-    color: var(--gold-600);
-    background: var(--gold-100);
-    border: 1px solid rgba(200, 162, 75, 0.4);
+    color: var(--bone);
+    background: var(--ink);
   }
   .empty-state h2 {
-    color: var(--navy-800);
+    color: var(--ink);
   }
-  .empty-state p {
+  .es-text {
     max-width: 52ch;
-    color: var(--muted);
-    line-height: 1.65;
   }
   .es-actions {
     display: flex;
@@ -101,7 +86,6 @@ import { social, whatsappLink } from '../config/site';
     display: flex;
     gap: 0.7rem;
     margin-top: 1rem;
-    color: var(--navy-700);
   }
   .es-social a {
     display: grid;
@@ -109,12 +93,12 @@ import { social, whatsappLink } from '../config/site';
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    border: 1px solid var(--line);
-    transition: all 0.2s var(--ease);
+    border: 1px solid var(--mist);
+    color: var(--ink);
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
   }
   .es-social a:hover {
-    background: var(--navy-800);
-    color: var(--paper);
-    border-color: var(--navy-800);
+    background: var(--ash);
+    border-color: var(--ink);
   }
 </style>

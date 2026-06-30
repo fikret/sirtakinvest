@@ -1,17 +1,17 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import V2Layout from '../layouts/V2Layout.astro';
 import Icon from '../components/Icon.astro';
-import MeanderDivider from '../components/MeanderDivider.astro';
-import CTABanner from '../components/CTABanner.astro';
-import PlaceholderImage from '../components/PlaceholderImage.astro';
+import ArrowPill from '../components/v2/ArrowPill.astro';
+import V2Placeholder from '../components/v2/V2Placeholder.astro';
+import CtaBanner from '../components/v2/CtaBanner.astro';
 import { withBase } from '../lib/url';
 import { site } from '../config/site';
 
 const stats = [
-  { value: '10+', label: 'Yıl Saha Tecrübesi' },
-  { value: '2–4 ay', label: 'Ortalama Süreç' },
-  { value: '3 Kuşak', label: 'Aile Kapsamı' },
-  { value: '€ Bazlı', label: 'Kira Geliri' },
+  { value: '10+', label: 'yıl saha tecrübesi' },
+  { value: '2–4 ay', label: 'ortalama süreç' },
+  { value: '3 kuşak', label: 'aile kapsamı' },
+  { value: 'Euro', label: 'bazlı kira geliri' },
 ];
 
 const values = [
@@ -26,7 +26,7 @@ const values = [
     text: 'Atina’dan Nafplio’ya; kira sürekliliği, likidite ve yaşam kalitesi yüksek bölgelere yönlendiririz.',
   },
   {
-    icon: 'check',
+    icon: 'shield',
     title: 'Dürüst Ekspertiz',
     text: 'Bir mülkün gerçek fırsat mı yoksa balon mu olduğunu, 10 yıllık saha tecrübemizle ayırt ederiz.',
   },
@@ -37,39 +37,41 @@ const values = [
   },
 ];
 ---
-<BaseLayout
+<V2Layout
   title="Hakkımızda"
   description="Sirtakinvest, Yunanistan Golden Visa sürecinde 10 yılı aşkın saha tecrübesiyle doğru mülk, doğru fiyat ve doğru hukuki yapı kurar."
 >
-  <section class="about-hero">
-    <div class="container about-grid">
+  <!-- HERO -->
+  <section class="v2-section about-hero">
+    <div class="v2-container about-grid">
       <div class="about-text">
-        <span class="eyebrow">Hakkımızda</span>
-        <h1>Avrupa’da Misafir Değil, Ev Sahibi Olun</h1>
-        <p class="lead">
+        <span class="badge mono">HAKKIMIZDA</span>
+        <h1 class="heading-lg about-title">Avrupa'da misafir değil, ev sahibi olun.</h1>
+        <p class="about-lead body text-smoke">
           {site.name}, Yunanistan Golden Visa sürecinde {site.experienceYears} yılı aşkın saha
           tecrübesiyle yanınızda. Bizim için oturum izni, kârlı bir gayrimenkul yatırımının yanındaki
           en güzel “hediyedir”; asıl olan sermayenizi doğru mülke bağlamaktır.
         </p>
         <div class="about-actions">
-          <a class="btn btn-gold" href={withBase('/toplanti-planla')}><Icon name="calendar" size={18} />Tanışalım</a>
-          <a class="btn btn-outline" href={withBase('/projeler')}>Projeleri Gör<Icon name="arrow-right" size={16} /></a>
+          <ArrowPill href={withBase('/toplanti-planla')} label="Tanışalım" />
+          <a class="ghost-btn" href={withBase('/projeler')}>Projeleri gör <Icon name="arrow-right" size={15} /></a>
         </div>
       </div>
       <div class="about-media">
-        <PlaceholderImage label="Atina" tag="Yunanistan" variant="deep" />
+        <V2Placeholder label="Atina" ember />
       </div>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container">
+  <!-- İSTATİSTİK -->
+  <section class="v2-section section-top">
+    <div class="v2-container">
       <div class="stats">
         {
           stats.map((s, i) => (
             <div class="stat reveal" style={`--d:${i * 70}ms`}>
-              <span class="stat-value">{s.value}</span>
-              <span class="stat-label">{s.label}</span>
+              <span class="stat-v heading-sm">{s.value}</span>
+              <span class="stat-l caption text-smoke">{s.label}</span>
             </div>
           ))
         }
@@ -77,39 +79,44 @@ const values = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="container narrow about-story">
-      <h2>Neden Sirtakinvest?</h2>
-      <p>
-        Yunanistan, kriz günlerini çoktan geride bıraktı; bugün Avrupa’nın en diri yatırım
-        merkezlerinden biri. Ancak bir yatırımcı olarak asıl mesele sadece oturum izni almak değil,
-        paranızın karşılığını gerçekten almaktır. Doğru bir stratejiyle yapılan yatırım, size sadece
-        bir “kart” kazandırmaz; yarın satmak istediğinizde yerel halkın bile talip olacağı, gerçek
-        değeri olan bir mülk kazandırır.
-      </p>
-      <p>
-        Golden Visa’yı tek bir kişinin aldığı oturum kartı olarak değil, eşinizi, çocuklarınızı,
-        anne-babanızı ve eşinizin anne-babasını kapsayan bir <strong>aile koruma kalkanı</strong>
-        olarak görüyoruz. Her ailenin yapısı farklıdır; bu yüzden yatırımı, olası boşanma, miras veya
-        aileye yeni katılacak bireyler gibi senaryoları da düşünerek baştan doğru kurgularız.
-      </p>
-      <MeanderDivider class="story-divider" />
+  <!-- HİKAYE -->
+  <section class="v2-section">
+    <div class="v2-container">
+      <div class="story">
+        <h2 class="heading story-title">Neden {site.name}?</h2>
+        <div class="prose story-prose">
+          <p>
+            Yunanistan, kriz günlerini çoktan geride bıraktı; bugün Avrupa'nın en diri yatırım
+            merkezlerinden biri. Ancak bir yatırımcı olarak asıl mesele sadece oturum izni almak değil,
+            paranızın karşılığını gerçekten almaktır. Doğru bir stratejiyle yapılan yatırım, size sadece
+            bir “kart” kazandırmaz; yarın satmak istediğinizde yerel halkın bile talip olacağı, gerçek
+            değeri olan bir mülk kazandırır.
+          </p>
+          <p>
+            Golden Visa'yı tek bir kişinin aldığı oturum kartı olarak değil, eşinizi, çocuklarınızı,
+            anne-babanızı ve eşinizin anne-babasını kapsayan bir <strong>aile koruma kalkanı</strong>
+            olarak görüyoruz. Her ailenin yapısı farklıdır; bu yüzden yatırımı, olası boşanma, miras veya
+            aileye yeni katılacak bireyler gibi senaryoları da düşünerek baştan doğru kurgularız.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Çalışma İlkemiz</span>
-        <h2>Yatırımınızı Korumaya Odaklanırız</h2>
+  <!-- DEĞERLER -->
+  <section class="v2-section">
+    <div class="v2-container">
+      <div class="vsec-head">
+        <span class="badge mono">ÇALIŞMA İLKEMİZ</span>
+        <h2 class="heading vsec-title">Yatırımınızı korumaya odaklanırız.</h2>
       </div>
       <div class="values-grid">
         {
           values.map((v, i) => (
-            <div class="value-card reveal" style={`--d:${i * 70}ms`}>
+            <div class="value-card v2-card reveal" style={`--d:${i * 70}ms`}>
               <span class="value-icon"><Icon name={v.icon} size={22} /></span>
-              <h3>{v.title}</h3>
-              <p>{v.text}</p>
+              <h3 class="value-h subheading">{v.title}</h3>
+              <p class="caption text-smoke">{v.text}</p>
             </div>
           ))
         }
@@ -117,95 +124,94 @@ const values = [
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container">
-      <CTABanner />
+  <section class="v2-section">
+    <div class="v2-container">
+      <CtaBanner />
     </div>
   </section>
-</BaseLayout>
+</V2Layout>
 
 <style>
-  .about-hero {
-    padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem);
-    background: linear-gradient(180deg, var(--paper-2), transparent);
-  }
   .about-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
-    gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+    gap: clamp(28px, 4vw, 56px);
     align-items: center;
   }
-  .about-text h1 {
-    margin-top: 0.6rem;
+  .about-title {
+    margin-top: 16px;
+    max-width: 16ch;
   }
-  .about-text .lead {
-    margin-top: 1.1rem;
+  .about-lead {
+    margin-top: 20px;
+    max-width: 56ch;
   }
   .about-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 1.8rem;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
   }
   .about-media {
     aspect-ratio: 4 / 3;
-    border-radius: var(--radius-lg);
+    border-radius: var(--r-card);
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--mist);
   }
 
+  .section-top {
+    padding-top: 0;
+  }
   .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.2rem;
+    gap: 1px;
+    background: var(--mist);
+    border: 1px solid var(--mist);
+    border-radius: var(--r-card);
+    overflow: hidden;
   }
   .stat {
-    text-align: center;
-    padding: 1.6rem 1rem;
-    border-radius: var(--radius);
-    background: var(--white);
-    border: 1px solid var(--line-soft);
-    box-shadow: var(--shadow-sm);
+    background: var(--bone);
+    padding: 28px 24px;
+    display: grid;
+    gap: 6px;
   }
-  .stat-value {
-    display: block;
-    font-family: var(--font-display);
-    font-weight: 580;
-    font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.5rem);
-    color: var(--navy-800);
+  .stat-v {
+    color: var(--ink);
   }
-  .stat-label {
-    font-size: 0.85rem;
-    color: var(--muted);
-    letter-spacing: 0.02em;
+  .stat-l {
+    text-transform: lowercase;
   }
 
-  .about-story h2 {
-    margin-bottom: 1.1rem;
+  .story {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: clamp(24px, 4vw, 56px);
+    align-items: start;
   }
-  .about-story p + p {
-    margin-top: 1.1rem;
+  .story-title {
+    max-width: 14ch;
   }
-  .about-story p {
-    color: var(--ink-soft);
-    line-height: 1.75;
-  }
-  .story-divider {
-    margin-top: 2.5rem;
+  .story-prose {
+    margin: 0;
   }
 
+  .vsec-head {
+    margin-bottom: 40px;
+  }
+  .vsec-title {
+    margin-top: 16px;
+    max-width: 24ch;
+  }
   .values-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-    margin-top: 1.8rem;
+    gap: 24px;
   }
   .value-card {
-    padding: 1.6rem;
-    border-radius: var(--radius);
-    background: var(--white);
-    border: 1px solid var(--line-soft);
-    box-shadow: var(--shadow-sm);
+    padding: var(--s-32);
   }
   .value-icon {
     display: grid;
@@ -213,22 +219,16 @@ const values = [
     width: 48px;
     height: 48px;
     border-radius: 14px;
-    color: var(--gold-600);
-    background: var(--gold-100);
-    border: 1px solid rgba(200, 162, 75, 0.35);
-    margin-bottom: 1rem;
+    color: var(--bone);
+    background: var(--ink);
+    margin-bottom: 20px;
   }
-  .value-card h3 {
-    color: var(--navy-800);
-    margin-bottom: 0.5rem;
-  }
-  .value-card p {
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
+  .value-h {
+    color: var(--ink);
+    margin-bottom: 10px;
   }
 
-  @media (max-width: 860px) {
+  @media (max-width: 900px) {
     .about-grid {
       grid-template-columns: 1fr;
     }
@@ -237,7 +237,11 @@ const values = [
       aspect-ratio: 16 / 9;
     }
     .stats {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
+    }
+    .story {
+      grid-template-columns: 1fr;
+      gap: 24px;
     }
     .values-grid {
       grid-template-columns: 1fr;

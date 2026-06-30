@@ -1,9 +1,8 @@
 ---
 /**
- * v2 layout — (dot)connect tasarımı için BAĞIMSIZ kabuk.
- * Kök sitenin BaseLayout/global.css'inden ayrıdır; Geist fontları + v2.css yükler.
- * İçerik koleksiyonları (articles/projects) ve site config ortak kullanılabilir.
- * Varsayılan noindex (yapım aşamasında / kök ile çift içerik SEO'su olmasın).
+ * Sitenin ana layout'u — (dot)connect (v2) tasarım sistemi.
+ * Geist fontları + v2.css yükler; V2Nav (çok sayfalı) + V2Footer kabuğu.
+ * İçerik koleksiyonları (articles/projects) ve site config ortak kullanılır.
  */
 import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
@@ -13,16 +12,18 @@ import V2Nav from '../components/v2/V2Nav.astro';
 import V2Footer from '../components/v2/V2Footer.astro';
 
 interface Props {
-  title?: string;
+  title: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
   noindex?: boolean;
 }
-const { title = 'v2', description, noindex = true } = Astro.props;
+const { title, description, image, type, noindex = false } = Astro.props;
 ---
 <!doctype html>
 <html lang="tr">
   <head>
-    <BaseHead title={title} description={description} noindex={noindex} />
+    <BaseHead title={title} description={description} image={image} type={type} noindex={noindex} />
   </head>
   <body id="top">
     <a class="skip-link" href="#main">İçeriğe geç</a>

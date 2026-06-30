@@ -1,13 +1,14 @@
 ---
 import Icon from '../Icon.astro';
 import { site, contact, social, whatsappLink } from '../../config/site';
+import { withBase } from '../../lib/url';
 const year = 2026;
 const links = [
-  { label: 'Hakkımızda', href: '#hakkimizda' },
-  { label: 'Hizmetler', href: '#hizmetler' },
-  { label: 'Sorular', href: '#sorular' },
-  { label: 'Projeler', href: '#projeler' },
-  { label: 'Felsefe', href: '#felsefe' },
+  { label: 'Hakkında', href: withBase('/hakkinda') },
+  { label: 'Blog', href: withBase('/blog') },
+  { label: 'Projeler', href: withBase('/projeler') },
+  { label: 'Etkinlikler', href: withBase('/etkinlikler') },
+  { label: 'Toplantı Planla', href: withBase('/toplanti-planla') },
 ];
 ---
 <footer class="v2footer">
@@ -19,8 +20,8 @@ const links = [
         <p class="caption text-smoke">{site.tagline}</p>
       </div>
 
-      <nav class="v2footer-col" aria-label="Bölümler">
-        <span class="v2footer-h mono">BÖLÜMLER</span>
+      <nav class="v2footer-col" aria-label="Sayfalar">
+        <span class="v2footer-h mono">SAYFALAR</span>
         {links.map((l) => <a class="caption" href={l.href}>{l.label}</a>)}
       </nav>
 

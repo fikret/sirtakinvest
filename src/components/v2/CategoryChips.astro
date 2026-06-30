@@ -1,0 +1,48 @@
+---
+import { categories } from '../../config/site';
+import type { CategoryKey } from '../../config/site';
+import { categoryHref } from '../../lib/content';
+import { withBase } from '../../lib/url';
+
+interface Props {
+  active?: CategoryKey | 'all';
+}
+const { active = 'all' } = Astro.props;
+const entries = Object.entries(categories) as [CategoryKey, (typeof categories)[CategoryKey]][];
+---
+<div class="chips" role="list">
+  <a class={`chip ${active === 'all' ? 'is-active' : ''}`} href={withBase('/blog')} role="listitem">Tümü</a>
+  {
+    entries.map(([key, c]) => (
+      <a class={`chip ${active === key ? 'is-active' : ''}`} href={categoryHref(key)} role="listitem">
+        {c.label}
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    font-size: 0.95rem;
+    color: var(--smoke);
+    background: var(--bone);
+    border: 1px solid var(--mist);
+    border-radius: var(--r-pill);
+    padding: 8px 18px;
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .chip:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .chip.is-active {
+    background: var(--ink);
+    color: var(--bone);
+    border-color: var(--ink);
+  }
+</style>

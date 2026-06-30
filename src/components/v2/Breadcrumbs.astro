@@ -1,0 +1,47 @@
+---
+/**
+ * Detay sayfaları için kırıntı navigasyonu.
+ * items: son öğe genelde href'siz (geçerli sayfa).
+ */
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  items: Crumb[];
+}
+const { items } = Astro.props;
+---
+<nav class="crumbs caption" aria-label="Konum">
+  {
+    items.map((c, i) => (
+      <>
+        {c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+        {i < items.length - 1 && <span class="crumb-sep" aria-hidden="true">/</span>}
+      </>
+    ))
+  }
+</nav>
+
+<style>
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    color: var(--smoke);
+  }
+  .crumbs a {
+    color: var(--smoke);
+    transition: color 0.2s var(--ease);
+  }
+  .crumbs a:hover {
+    color: var(--ink);
+  }
+  .crumb-sep {
+    color: var(--mist);
+  }
+  .crumbs span[aria-current='page'] {
+    color: var(--ink);
+  }
+</style>

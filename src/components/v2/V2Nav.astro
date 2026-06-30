@@ -1,25 +1,41 @@
 ---
 import Icon from '../Icon.astro';
 import { site } from '../../config/site';
+import { withBase } from '../../lib/url';
 
 const links = [
-  { label: 'Hakkımızda', href: '#hakkimizda' },
-  { label: 'Hizmetler', href: '#hizmetler' },
-  { label: 'Sorular', href: '#sorular' },
-  { label: 'Projeler', href: '#projeler' },
-  { label: 'Felsefe', href: '#felsefe' },
+  { label: 'Hakkında', href: withBase('/hakkinda') },
+  { label: 'Blog', href: withBase('/blog') },
+  { label: 'Projeler', href: withBase('/projeler') },
+  { label: 'Etkinlikler', href: withBase('/etkinlikler') },
+  { label: 'İletişim', href: withBase('/iletisim') },
 ];
+const planHref = withBase('/toplanti-planla');
+
+// Aktif sayfa tespiti (base-duyarlı; alt sayfaları da vurgular)
+const norm = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
+const here = norm(Astro.url.pathname);
+const isActive = (href: string) => {
+  const h = norm(href);
+  return here === h || here.startsWith(`${h}/`);
+};
 ---
 <header class="v2nav" data-v2nav>
   <div class="v2-container v2nav-inner">
-    <a class="v2-logo" href="#top">{site.name}</a>
+    <a class="v2-logo" href={withBase('/')}>{site.name}</a>
 
-    <nav class="v2nav-links" aria-label="Bölümler">
-      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    <nav class="v2nav-links" aria-label="Ana menü">
+      {
+        links.map((l) => (
+          <a href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}>
+            {l.label}
+          </a>
+        ))
+      }
     </nav>
 
     <div class="v2nav-right">
-      <a class="btn-ember v2nav-cta" href="#iletisim">Toplantı Planla</a>
+      <a class="btn-ember v2nav-cta" href={planHref}>Toplantı Planla</a>
       <button class="v2-burger" data-v2burger aria-label="Menü" aria-expanded="false" aria-controls="v2-menu">
         <Icon name="menu" size={24} />
       </button>
@@ -27,9 +43,15 @@ const links = [
   </div>
 
   <div class="v2-mobile" id="v2-menu" data-v2menu hidden>
-    <nav aria-label="Mobil bölümler">
-      {links.map((l) => <a href={l.href} data-v2close>{l.label}</a>)}
-      <a class="btn-ember" href="#iletisim" data-v2close>Toplantı Planla</a>
+    <nav aria-label="Mobil menü">
+      {
+        links.map((l) => (
+          <a href={l.href} data-v2close aria-current={isActive(l.href) ? 'page' : undefined}>
+            {l.label}
+          </a>
+        ))
+      }
+      <a class="btn-ember" href={planHref} data-v2close>Toplantı Planla</a>
     </nav>
   </div>
 </header>
@@ -88,8 +110,12 @@ const links = [
   .v2nav-links a:hover {
     color: var(--ink);
   }
-  .v2nav-links a:hover::after {
+  .v2nav-links a:hover::after,
+  .v2nav-links a[aria-current='page']::after {
     transform: scaleX(1);
+  }
+  .v2nav-links a[aria-current='page'] {
+    color: var(--ink);
   }
   .v2nav-right {
     display: flex;
@@ -119,10 +145,14 @@ const links = [
     color: var(--ink);
     border-bottom: 1px solid var(--ash);
   }
+  .v2-mobile nav a[aria-current='page'] {
+    color: var(--ember);
+  }
   .v2-mobile nav a.btn-ember {
     margin-top: 16px;
     justify-content: center;
     border-bottom: 0;
+    color: var(--bone);
   }
 
   @media (max-width: 920px) {

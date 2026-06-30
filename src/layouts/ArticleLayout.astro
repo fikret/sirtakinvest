@@ -1,9 +1,10 @@
 ---
-import BaseLayout from './BaseLayout.astro';
+import V2Layout from './V2Layout.astro';
 import Icon from '../components/Icon.astro';
-import PlaceholderImage from '../components/PlaceholderImage.astro';
-import ContentCard from '../components/ContentCard.astro';
-import CTABanner from '../components/CTABanner.astro';
+import Breadcrumbs from '../components/v2/Breadcrumbs.astro';
+import V2Placeholder from '../components/v2/V2Placeholder.astro';
+import QuestionCard from '../components/v2/QuestionCard.astro';
+import CtaBanner from '../components/v2/CtaBanner.astro';
 import { categories, site } from '../config/site';
 import type { CategoryKey } from '../config/site';
 import { withBase } from '../lib/url';
@@ -36,39 +37,41 @@ const articleLd = {
   publisher: { '@type': 'Organization', name: site.name, url: site.url },
 };
 ---
-<BaseLayout title={title} description={spot} type="article">
+<V2Layout title={title} description={spot} type="article">
   <article>
-    <header class="article-hero">
-      <div class="container">
-        <nav class="crumbs" aria-label="Konum">
-          <a href={withBase('/')}>Ana Sayfa</a>
-          <span aria-hidden="true">/</span>
-          <a href={categoryHref(category)}>{cat.label}</a>
-        </nav>
+    <header class="v2-section article-hero">
+      <div class="v2-container">
+        <Breadcrumbs
+          items={[
+            { label: 'Ana Sayfa', href: withBase('/') },
+            { label: 'Blog', href: withBase('/blog') },
+            { label: cat.label, href: categoryHref(category) },
+          ]}
+        />
         <div class="ah-grid">
           <div class="ah-text">
-            <span class="eyebrow">{heroTag ?? cat.short}</span>
-            <h1>{title}</h1>
-            <p class="lead">{spot}</p>
+            <span class="badge mono">{heroTag ?? cat.short}</span>
+            <h1 class="heading ah-title">{title}</h1>
+            <p class="ah-lead body text-smoke">{spot}</p>
           </div>
           <div class="ah-media">
-            <PlaceholderImage label={label ?? cat.short} tag={cat.label} variant="auto" />
+            <V2Placeholder label={label ?? cat.short} ember />
           </div>
         </div>
       </div>
     </header>
 
-    <div class="container article-body">
-      <div class="prose narrow">
+    <div class="v2-container article-body">
+      <div class="prose">
         <slot />
       </div>
 
       <aside class="article-back">
-        <a class="btn btn-outline" href={withBase('/blog')}>
+        <a class="ghost-btn" href={withBase('/blog')}>
           <Icon name="arrow-left" size={16} />
           Tüm Sorular
         </a>
-        <a class="btn btn-outline" href={categoryHref(category)}>
+        <a class="ghost-btn" href={categoryHref(category)}>
           {cat.label}
           <Icon name="arrow-right" size={16} />
         </a>
@@ -77,17 +80,17 @@ const articleLd = {
 
     {
       related.length > 0 && (
-        <section class="section-tight related">
-          <div class="container">
-            <h2 class="related-title">İlgili Sorular</h2>
+        <section class="v2-section">
+          <div class="v2-container">
+            <h2 class="heading-sm related-title">İlgili Sorular</h2>
             <div class="related-grid">
               {related.map((r, i) => (
-                <ContentCard
+                <QuestionCard
                   href={r.href}
-                  cardTitle={r.cardTitle}
+                  num={String(i + 1).padStart(2, '0')}
+                  question={r.cardTitle}
                   spot={r.spot}
-                  category={r.category}
-                  style={`--d:${i * 80}ms`}
+                  index={i}
                 />
               ))}
             </div>
@@ -96,77 +99,70 @@ const articleLd = {
       )
     }
 
-    <div class="container section-tight">
-      <CTABanner />
+    <div class="v2-container article-cta">
+      <CtaBanner />
     </div>
 
     <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
   </article>
-</BaseLayout>
+</V2Layout>
 
 <style>
   .article-hero {
-    padding-block: clamp(1.6rem, 1.2rem + 2vw, 3rem) clamp(2rem, 1.5rem + 2vw, 3rem);
-    background: linear-gradient(180deg, var(--paper-2), transparent);
-    border-bottom: 1px solid var(--line-soft);
-  }
-  .crumbs {
-    display: flex;
-    gap: 0.6em;
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 1.6rem;
-  }
-  .crumbs a:hover {
-    color: var(--navy-700);
+    border-bottom: 1px solid var(--mist);
   }
   .ah-grid {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
-    gap: clamp(1.5rem, 1rem + 3vw, 3rem);
+    gap: clamp(24px, 4vw, 56px);
     align-items: center;
+    margin-top: 28px;
   }
-  .ah-text h1 {
-    margin-top: 0.7rem;
+  .ah-title {
+    margin-top: 16px;
     text-wrap: balance;
   }
-  .ah-text .lead {
-    margin-top: 1.1rem;
+  .ah-lead {
+    margin-top: 16px;
+    max-width: 52ch;
   }
   .ah-media {
     aspect-ratio: 4 / 3;
-    border-radius: var(--radius-lg);
+    border-radius: var(--r-card);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--mist);
   }
 
   .article-body {
-    padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
+    padding-block: clamp(40px, 5vw, 72px);
   }
-  .prose.narrow {
+  .prose {
     margin-inline: auto;
   }
   .article-back {
-    max-width: var(--container-narrow);
-    margin: 3rem auto 0;
-    padding-top: 1.6rem;
-    border-top: 1px solid var(--line-soft);
+    max-width: 68ch;
+    margin: 48px auto 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--mist);
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 16px;
     flex-wrap: wrap;
   }
 
   .related-title {
-    margin-bottom: 1.6rem;
+    margin-bottom: 28px;
   }
   .related-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
+    gap: 24px;
+  }
+  .article-cta {
+    padding-bottom: var(--section-gap);
   }
 
-  @media (max-width: 820px) {
+  @media (max-width: 900px) {
     .ah-grid {
       grid-template-columns: 1fr;
     }

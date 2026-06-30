@@ -1,45 +1,35 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ContentCard from '../../components/ContentCard.astro';
-import CTABanner from '../../components/CTABanner.astro';
-import { getArticles, articleHref, categoryHref } from '../../lib/content';
-import { withBase } from '../../lib/url';
-import { categories } from '../../config/site';
+import V2Layout from '../../layouts/V2Layout.astro';
+import PageHero from '../../components/v2/PageHero.astro';
+import CategoryChips from '../../components/v2/CategoryChips.astro';
+import QuestionCard from '../../components/v2/QuestionCard.astro';
+import CtaBanner from '../../components/v2/CtaBanner.astro';
+import { getArticles, articleHref } from '../../lib/content';
 
 const articles = await getArticles();
-const catEntries = Object.entries(categories);
 ---
-<BaseLayout
+<V2Layout
   title="Blog & Sık Sorulan Sorular"
   description="Yunanistan Golden Visa hakkında merak edilen tüm sorular: vize, yatırım, aile hakları, ikinci ev ve adalarda yazlık."
 >
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow">Bilgi Merkezi</span>
-      <h1>Golden Visa Rehberi</h1>
-      <p class="lead">
-        Yunanistan Golden Visa sürecinin tüm sorularını; vize kolaylığından yatırım getirisine, aile
-        haklarından ikinci ev hayaline kadar tek tek yanıtladık.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    badge="BİLGİ MERKEZİ"
+    title="Golden Visa rehberi"
+    lead="Yunanistan Golden Visa sürecinin tüm sorularını; vize kolaylığından yatırım getirisine, aile haklarından ikinci ev hayaline kadar tek tek yanıtladık."
+  />
 
-  <section class="container filter-bar">
-    <a class="chip chip-active" href={withBase('/blog')}>Tümü</a>
-    {catEntries.map(([key, c]) => <a class="chip" href={categoryHref(key)}>{c.label}</a>)}
-  </section>
-
-  <section class="section-tight">
-    <div class="container">
-      <div class="card-grid">
+  <section class="v2-section section-top">
+    <div class="v2-container">
+      <CategoryChips active="all" />
+      <div class="q-grid">
         {
           articles.map((a, i) => (
-            <ContentCard
+            <QuestionCard
               href={articleHref(a.id)}
-              cardTitle={a.data.cardTitle}
+              num={String(i + 1).padStart(2, '0')}
+              question={a.data.cardTitle}
               spot={a.data.spot}
-              category={a.data.category}
-              style={`--d:${i * 50}ms`}
+              index={i}
             />
           ))
         }
@@ -47,62 +37,30 @@ const catEntries = Object.entries(categories);
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container">
-      <CTABanner />
+  <section class="v2-section">
+    <div class="v2-container">
+      <CtaBanner />
     </div>
   </section>
-</BaseLayout>
+</V2Layout>
 
 <style>
-  .page-hero {
-    padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem) 1.5rem;
-    background: linear-gradient(180deg, var(--paper-2), transparent);
+  .section-top {
+    padding-top: 0;
   }
-  .page-hero h1 {
-    margin-top: 0.6rem;
-  }
-  .page-hero .lead {
-    margin-top: 1rem;
-    max-width: 60ch;
-  }
-  .filter-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    padding-top: 0.5rem;
-  }
-  .chip {
-    padding: 0.5em 1.1em;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--ink-soft);
-    background: var(--white);
-    transition: all 0.2s var(--ease);
-  }
-  .chip:hover {
-    border-color: var(--navy-700);
-    color: var(--navy-800);
-  }
-  .chip-active {
-    background: var(--navy-800);
-    color: var(--paper);
-    border-color: var(--navy-800);
-  }
-  .card-grid {
+  .q-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
+    gap: 24px;
+    margin-top: 40px;
   }
-  @media (max-width: 980px) {
-    .card-grid {
-      grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 900px) {
+    .q-grid {
+      grid-template-columns: 1fr 1fr;
     }
   }
   @media (max-width: 640px) {
-    .card-grid {
+    .q-grid {
       grid-template-columns: 1fr;
     }
   }

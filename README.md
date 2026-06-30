@@ -136,4 +136,5 @@ Cloudflare Pages siteyi **kök alan adında** servis eder, yani `base` artık `/
 | `/toplanti-planla` | Zoom randevu (embed) |
 | `/iletisim` | İletişim |
 
-Teknoloji: Astro · Content Collections · @astrojs/sitemap · self-host fontlar (Fraunces + Figtree).
+Teknoloji: Astro · Content Collections · @astrojs/sitemap · self-host fontlar (Geist + Geist Mono).
+Tasarım: tek tasarım sistemi — **(dot)connect** (`src/styles/v2.css` + `src/components/v2/`).

@@ -1,42 +1,37 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import CTABanner from '../../components/CTABanner.astro';
+import V2Layout from '../../layouts/V2Layout.astro';
+import PageHero from '../../components/v2/PageHero.astro';
+import StoryCard from '../../components/v2/StoryCard.astro';
+import CtaBanner from '../../components/v2/CtaBanner.astro';
 import { getProjects, projectHref } from '../../lib/content';
 
 const projects = await getProjects();
 ---
-<BaseLayout
+<V2Layout
   title="Projeler"
   description="Golden Visa'ya uygun, doğru fiyatlı yatırım projeleri: Atina, Glyfada, Nafplio, Selanik ve Pire."
 >
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow">Portföy</span>
-      <h1>Projelerimiz</h1>
-      <p class="lead">
-        Şişirilmiş fiyatlardan uzak; gerçek piyasa değerinde, kiralanabilir ve gerektiğinde
-        satılabilir Golden Visa yatırım fırsatları.
-      </p>
-      <p class="note">Aşağıdaki kayıtlar örnek (placeholder) projelerdir; gerçek görsel ve detaylar eklenecektir.</p>
-    </div>
-  </section>
+  <PageHero
+    badge="PORTFÖY"
+    title="Projelerimiz"
+    lead="Şişirilmiş fiyatlardan uzak; gerçek piyasa değerinde, kiralanabilir ve gerektiğinde satılabilir Golden Visa yatırım fırsatları."
+  >
+    <p class="note caption text-smoke">
+      Aşağıdaki kayıtlar örnek (placeholder) projelerdir; gerçek görsel ve detaylar eklenecektir.
+    </p>
+  </PageHero>
 
-  <section class="section-tight">
-    <div class="container">
-      <div class="project-grid">
+  <section class="v2-section section-top">
+    <div class="v2-container">
+      <div class="proj-grid">
         {
-          projects.map((p, i) => (
-            <ProjectCard
+          projects.map((p) => (
+            <StoryCard
               href={projectHref(p.id)}
-              title={p.data.title}
-              projectCode={p.data.projectCode}
-              location={p.data.location}
-              priceFrom={p.data.priceFrom}
-              status={p.data.status}
-              summary={p.data.summary}
+              name={p.data.title}
+              desc={p.data.summary}
+              meta={`${p.data.projectCode} · ${p.data.location} · ${p.data.priceFrom}`}
               label={p.data.placeholderLabel}
-              style={`--d:${i * 70}ms`}
             />
           ))
         }
@@ -44,46 +39,35 @@ const projects = await getProjects();
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container">
-      <CTABanner
-        title="Size Uygun Projeyi Birlikte Bulalım"
+  <section class="v2-section">
+    <div class="v2-container">
+      <CtaBanner
+        title="Size uygun projeyi birlikte bulalım."
         text="Bütçenize, yaşam tarzınıza ve yatırım hedefinize en uygun mülkü doğru fiyatla seçmek için tanışalım."
       />
     </div>
   </section>
-</BaseLayout>
+</V2Layout>
 
 <style>
-  .page-hero {
-    padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem) 1.5rem;
-    background: linear-gradient(180deg, var(--paper-2), transparent);
-  }
-  .page-hero h1 {
-    margin-top: 0.6rem;
-  }
-  .page-hero .lead {
-    margin-top: 1rem;
-    max-width: 60ch;
-  }
   .note {
-    margin-top: 0.8rem;
-    font-size: 0.85rem;
-    color: var(--muted);
-    font-style: italic;
+    margin-top: 16px;
   }
-  .project-grid {
+  .section-top {
+    padding-top: 0;
+  }
+  .proj-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.4rem;
+    gap: 32px 24px;
   }
-  @media (max-width: 980px) {
-    .project-grid {
-      grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 900px) {
+    .proj-grid {
+      grid-template-columns: 1fr 1fr;
     }
   }
-  @media (max-width: 640px) {
-    .project-grid {
+  @media (max-width: 560px) {
+    .proj-grid {
       grid-template-columns: 1fr;
     }
   }

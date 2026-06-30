@@ -1,6 +1,7 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import V2Layout from '../layouts/V2Layout.astro';
 import Icon from '../components/Icon.astro';
+import PageHero from '../components/v2/PageHero.astro';
 import ZoomScheduler from '../components/ZoomScheduler.astro';
 
 const topics = [
@@ -10,104 +11,83 @@ const topics = [
   'Aile kapsamı, mülkiyet yapısı ve hak güvenliği',
 ];
 ---
-<BaseLayout
+<V2Layout
   title="Toplantı Planla"
   description="Yüz yüze veya online tanışma toplantısı için randevu alın. Golden Visa yolculuğunuzu birlikte planlayalım."
 >
-  <section class="plan-hero">
-    <div class="container">
-      <span class="eyebrow">Ücretsiz Tanışma</span>
-      <h1>Toplantı Planlayın</h1>
-      <p class="lead">
-        Golden Visa yolculuğunuza başlamadan önce ihtiyaçlarınızı ve doğru yatırım stratejisini
-        birlikte konuşalım. Aşağıdaki takvimden size uygun zamanı seçin.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    badge="ÜCRETSİZ TANIŞMA"
+    title="Toplantı planlayın"
+    lead="Golden Visa yolculuğunuza başlamadan önce ihtiyaçlarınızı ve doğru yatırım stratejisini birlikte konuşalım. Aşağıdaki takvimden size uygun zamanı seçin."
+  />
 
-  <section class="section-tight">
-    <div class="container plan-grid">
+  <section class="v2-section section-top">
+    <div class="v2-container plan-grid">
       <div class="plan-main">
         <ZoomScheduler />
       </div>
-      <aside class="plan-aside">
-        <h2>Toplantıda neler konuşuruz?</h2>
+      <aside class="plan-aside v2-card">
+        <h2 class="subheading">Toplantıda neler konuşuruz?</h2>
         <ul class="topic-list">
-          {topics.map((t) => <li><Icon name="check" size={18} />{t}</li>)}
+          {topics.map((t) => <li class="caption"><Icon name="check" size={18} />{t}</li>)}
         </ul>
-        <div class="aside-note">
+        <div class="aside-note caption text-smoke">
           <Icon name="clock" size={18} />
           <span>Görüşme ortalama 30–45 dakika sürer ve tamamen ücretsizdir.</span>
         </div>
       </aside>
     </div>
   </section>
-</BaseLayout>
+</V2Layout>
 
 <style>
-  .plan-hero {
-    padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem) 1.5rem;
-    background: linear-gradient(180deg, var(--paper-2), transparent);
-  }
-  .plan-hero h1 {
-    margin-top: 0.6rem;
-  }
-  .plan-hero .lead {
-    margin-top: 1rem;
-    max-width: 62ch;
+  .section-top {
+    padding-top: 0;
   }
   .plan-grid {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
-    gap: 2rem;
+    gap: 32px;
     align-items: start;
   }
   .plan-aside {
     position: sticky;
     top: 100px;
-    padding: 1.8rem;
-    border-radius: var(--radius);
-    background: var(--white);
-    border: 1px solid var(--line-soft);
-    box-shadow: var(--shadow-sm);
+    padding: 28px;
   }
   .plan-aside h2 {
-    font-size: 1.3rem;
-    margin-bottom: 1.2rem;
+    color: var(--ink);
+    margin-bottom: 20px;
   }
   .topic-list {
     list-style: none;
     padding: 0;
     display: grid;
-    gap: 0.9rem;
+    gap: 14px;
   }
   .topic-list li {
     display: flex;
-    gap: 0.7em;
+    gap: 10px;
     align-items: flex-start;
-    font-size: 0.96rem;
-    line-height: 1.5;
-    color: var(--ink-soft);
+    color: var(--smoke);
   }
   .topic-list :global(svg) {
     flex: none;
-    margin-top: 0.15em;
-    color: var(--gold-600);
+    margin-top: 2px;
+    color: var(--ember);
   }
   .aside-note {
     display: flex;
-    gap: 0.6em;
+    gap: 10px;
     align-items: flex-start;
-    margin-top: 1.5rem;
-    padding-top: 1.3rem;
-    border-top: 1px solid var(--line-soft);
-    font-size: 0.9rem;
-    color: var(--muted);
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--mist);
   }
   .aside-note :global(svg) {
     flex: none;
-    color: var(--navy-700);
-    margin-top: 0.1em;
+    color: var(--ink);
+    margin-top: 2px;
   }
 
   @media (max-width: 860px) {

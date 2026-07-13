@@ -2,7 +2,6 @@
 import V2Layout from '../layouts/V2Layout.astro';
 import Icon from '../components/Icon.astro';
 import ArrowPill from '../components/v2/ArrowPill.astro';
-import V2Placeholder from '../components/v2/V2Placeholder.astro';
 import CtaBanner from '../components/v2/CtaBanner.astro';
 import { withBase } from '../lib/url';
 import { site } from '../config/site';
@@ -58,7 +57,13 @@ const values = [
         </div>
       </div>
       <div class="about-media">
-        <V2Placeholder label="Atina" ember />
+        <img
+          src={withBase('/images/hakkimizda-ofis.jpg')}
+          alt="Sirtakinvest ofisinde Golden Visa görüşmesi yapan bir aile — arka planda Akropolis"
+          width="1600"
+          height="1129"
+          loading="eager"
+        />
       </div>
     </div>
   </section>
@@ -158,6 +163,12 @@ const values = [
     border-radius: var(--r-card);
     overflow: hidden;
     border: 1px solid var(--mist);
+  }
+  .about-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .section-top {

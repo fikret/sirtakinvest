@@ -104,7 +104,14 @@ export type CategoryKey =
 
 export const categories: Record<
   CategoryKey,
-  { label: string; short: string; description: string }
+  {
+    label: string;
+    short: string;
+    description: string;
+    /** Kategori hero'sunda gösterilecek görsel (public/ altı yol). Yoksa hero tek sütun kalır. */
+    image?: string;
+    imageAlt?: string;
+  }
 > = {
   'vize-kolayligi': {
     label: 'Vize Kolaylığı',
@@ -135,6 +142,8 @@ export const categories: Record<
     short: 'Aile',
     description:
       'Tek bir yatırımla üç kuşak: eşiniz, çocuklarınız, anne-babanız ve eşinizin anne-babası için Avrupa’da yasal oturum hakkı.',
+    image: '/images/aile-haklar.jpg',
+    imageAlt: 'Anne, baba ve iki çocuktan oluşan bir aile — Golden Visa üç kuşağı kapsar',
   },
 };
 

@@ -8,9 +8,10 @@ interface Props {
   title: string;
   label?: string; // placeholder deseni için (görsel yoksa)
   image?: string; // public/ altındaki kapak görseli yolu, örn. '/instagram/ig1.jpg'
+  desc?: string; // başlığın altındaki kısa açıklama
   kind: 'instagram' | 'youtube';
 }
-const { href, title, label, image, kind } = Astro.props;
+const { href, title, label, image, desc, kind } = Astro.props;
 const badgeIcon = kind === 'youtube' ? 'play' : 'instagram';
 ---
 <a class="social-card" href={href} target="_blank" rel="noopener noreferrer">
@@ -29,6 +30,7 @@ const badgeIcon = kind === 'youtube' ? 'play' : 'instagram';
   <div class="sc-body">
     <span class="sc-kind caption text-smoke">{kind === 'youtube' ? 'YouTube' : 'Instagram'}</span>
     <h3 class="sc-title">{title}</h3>
+    {desc && <p class="sc-desc text-smoke">{desc}</p>}
   </div>
 </a>
 
@@ -100,6 +102,15 @@ const badgeIcon = kind === 'youtube' ? 'play' : 'instagram';
     color: var(--ink);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .sc-desc {
+    margin-top: 4px;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

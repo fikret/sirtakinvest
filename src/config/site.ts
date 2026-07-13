@@ -63,13 +63,29 @@ export const instagramPosts = [
 ] as const;
 
 /**
- * Ana sayfa "Hakkımızda" bölümündeki YouTube video kartları — PLACEHOLDER.
- * Gerçek video bağlantılarınızı ve başlıklarını buraya yazın (3 öğe).
+ * Ana sayfa "Hakkımızda" bölümündeki YouTube video kartları.
+ * Başlık ve açıklamalar videoların içeriğinden (transkript) çıkarıldı.
+ * Kapaklar: public/youtube/yt1-3.jpg (YouTube kapak görselleri).
  */
 export const youtubeVideos = [
-  { title: 'YouTube videosu 1', href: 'https://youtube.com/', label: 'YT 1' },
-  { title: 'YouTube videosu 2', href: 'https://youtube.com/', label: 'YT 2' },
-  { title: 'YouTube videosu 3', href: 'https://youtube.com/', label: 'YT 3' },
+  {
+    title: "Schengen'den red aldım, Golden Visa alabilir miyim?",
+    href: 'https://www.youtube.com/watch?v=bEfszinH_zI',
+    image: '/youtube/yt1.jpg',
+    desc: "Schengen reddi Golden Visa'nın önünde engel değil — iki süreç farklı bakanlıklarca yürütülüyor. Vizeniz olmasa bile yatırımı uzaktan başlatabilirsiniz.",
+  },
+  {
+    title: 'Golden Visa ailede kimleri kapsıyor?',
+    href: 'https://www.youtube.com/watch?v=UOiQBABaeNg',
+    image: '/youtube/yt2.jpg',
+    desc: 'Bir üst, bir alt kuşak: eşiniz, çocuklarınız, anne-babanız ve eşinizin anne-babası. Kardeş ve kuzen yok — peki yatırım kimin üzerine yapılmalı?',
+  },
+  {
+    title: 'Doğru mülkü doğru fiyata nasıl alırsınız?',
+    href: 'https://www.youtube.com/watch?v=2luIxyWMMng',
+    image: '/youtube/yt3.jpg',
+    desc: "Golden Visa işin kolay kısmı. Asıl soru şu: Golden Visa'ya ihtiyacı olmayan bir Yunanlı bu mülke ne öderdi? Doğru fiyatın ölçüsü bu.",
+  },
 ] as const;
 
 /** Üst menü */

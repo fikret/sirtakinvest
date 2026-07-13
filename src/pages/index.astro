@@ -164,7 +164,13 @@ const stats = [
           <div class="social-grid">
             {
               youtubeVideos.map((v) => (
-                <SocialCard href={v.href} title={v.title} label={v.label} kind="youtube" />
+                <SocialCard
+                  href={v.href}
+                  title={v.title}
+                  image={v.image}
+                  desc={v.desc}
+                  kind="youtube"
+                />
               ))
             }
           </div>

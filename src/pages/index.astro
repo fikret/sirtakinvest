@@ -101,10 +101,43 @@ const stats = [
     </div>
   </section>
 
-  <!-- HAKKIMIZDA (genişleyebilir) + SOSYAL İÇERİK -->
+  <!-- PROJELER (CAROUSEL) -->
+  <section id="projeler" class="v2-section">
+    <div class="v2-container">
+      <div class="proj-head">
+        <SectionHeader num="03" label="Projeler" />
+        <div class="proj-nav">
+          <button class="caro-btn" data-prev aria-label="Önceki"><Icon name="arrow-left" size={18} /></button>
+          <button class="caro-btn" data-next aria-label="Sonraki"><Icon name="arrow-right" size={18} /></button>
+        </div>
+      </div>
+    </div>
+    <div class="v2-container">
+      <div class="proj-track" data-track>
+        {
+          projects.map((p) => (
+            <div class="proj-item">
+              <StoryCard
+                href={projectHref(p.id)}
+                name={p.data.title}
+                desc={p.data.summary}
+                meta={`${p.data.location} · ${p.data.priceFrom}`}
+                label={p.data.placeholderLabel}
+              />
+            </div>
+          ))
+        }
+      </div>
+      <div class="q-all">
+        <a class="ghost-btn" href={withBase('/projeler')}>Tüm projeler ({projects.length})</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HAKKIMIZDA (genişleyebilir) + INSTAGRAM -->
   <section id="hakkimizda" class="v2-section">
     <div class="v2-container">
-      <SectionHeader num="03" label="Hakkımızda" />
+      <SectionHeader num="04" label="Hakkımızda" />
       <div class="about-grid">
         <div class="about-text">
           <h2 class="about-statement heading-sm">
@@ -159,55 +192,26 @@ const stats = [
             }
           </div>
         </div>
-        <div class="social-row">
-          <h3 class="social-h mono">YOUTUBE</h3>
-          <div class="social-grid">
-            {
-              youtubeVideos.map((v) => (
-                <SocialCard
-                  href={v.href}
-                  title={v.title}
-                  image={v.image}
-                  desc={v.desc}
-                  kind="youtube"
-                />
-              ))
-            }
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- PROJELER (CAROUSEL) -->
-  <section id="projeler" class="v2-section">
+  <!-- YOUTUBE -->
+  <section id="youtube" class="v2-section">
     <div class="v2-container">
-      <div class="proj-head">
-        <SectionHeader num="04" label="Projeler" />
-        <div class="proj-nav">
-          <button class="caro-btn" data-prev aria-label="Önceki"><Icon name="arrow-left" size={18} /></button>
-          <button class="caro-btn" data-next aria-label="Sonraki"><Icon name="arrow-right" size={18} /></button>
-        </div>
-      </div>
-    </div>
-    <div class="v2-container">
-      <div class="proj-track" data-track>
+      <SectionHeader num="05" label="YouTube" headline="Merak edilenleri videoda anlattık." />
+      <div class="social-grid">
         {
-          projects.map((p) => (
-            <div class="proj-item">
-              <StoryCard
-                href={projectHref(p.id)}
-                name={p.data.title}
-                desc={p.data.summary}
-                meta={`${p.data.location} · ${p.data.priceFrom}`}
-                label={p.data.placeholderLabel}
-              />
-            </div>
+          youtubeVideos.map((v) => (
+            <SocialCard
+              href={v.href}
+              title={v.title}
+              image={v.image}
+              desc={v.desc}
+              kind="youtube"
+            />
           ))
         }
-      </div>
-      <div class="q-all">
-        <a class="ghost-btn" href={withBase('/projeler')}>Tüm projeler ({projects.length})</a>
       </div>
     </div>
   </section>
@@ -216,7 +220,7 @@ const stats = [
   <section id="iletisim" class="v2-section">
     <div class="v2-container">
       <SectionHeader
-        num="05"
+        num="06"
         label="İletişim"
         headline="Yüz yüze tanışma toplantısından randevu alın."
       />

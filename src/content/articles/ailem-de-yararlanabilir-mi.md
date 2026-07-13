@@ -3,7 +3,7 @@ title: "Ailem de Golden Visa’dan Yararlanabilir mi?"
 cardTitle: "Ailem de Golden Visa'dan Yararlanabilir mi?"
 category: "aile-ve-haklar"
 spot: "Eşiniz, 21 yaş altı çocuklarınız, sizin ve eşinizin anne-babası tek bir yatırımla oturum hakkı kazanabilir."
-order: 3
+order: 7
 featured: true
 placeholderLabel: "Aile"
 heroTag: "Aile & Haklar"

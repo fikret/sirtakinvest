@@ -3,7 +3,7 @@ title: "Golden Visa Aldığımızda Yunanistan’da İkamet Etmemiz Şart mı?"
 cardTitle: "Yunanistanda İkamet Etmemiz Şart mı?"
 category: "ikinci-ev"
 spot: "Hayır. Golden Visa için Yunanistan’a taşınmanız gerekmez; size zorunluluk değil, esneklik ve seçenek sunar."
-order: 10
+order: 5
 featured: false
 placeholderLabel: "İkamet"
 heroTag: "2. Evim Yunanistan"

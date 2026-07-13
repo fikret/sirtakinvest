@@ -3,7 +3,7 @@ title: "Golden Visa ile Aldığım Konutu Kiraya Verebilir miyim?"
 cardTitle: "Kiraya Verebiliyor muyum?"
 category: "yatirim-firsati"
 spot: "Evet — ancak kısa dönem (Airbnb) değil, uzun dönem ve yasal kiralama Golden Visa için güvenli yoldur."
-order: 5
+order: 11
 featured: true
 placeholderLabel: "Kira Geliri"
 heroTag: "Yatırım Fırsatı"

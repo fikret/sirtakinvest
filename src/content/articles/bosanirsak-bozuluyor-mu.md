@@ -3,7 +3,7 @@ title: "Boşanırsak Golden Visa’mız Bozuluyor mu?"
 cardTitle: "Boşanırsak Golden Visa'mız Bozuluyor mu?"
 category: "aile-ve-haklar"
 spot: "Boşanma hakkı otomatik bozmaz; asıl belirleyici, yatırımın kimin adına ve hangi mülkiyet yapısıyla kurulduğudur."
-order: 4
+order: 9
 featured: false
 placeholderLabel: "Mülkiyet"
 heroTag: "Aile & Haklar"

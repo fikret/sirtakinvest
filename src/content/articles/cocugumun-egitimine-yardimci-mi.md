@@ -3,7 +3,7 @@ title: "Golden Visa Çocuğumun Üniversitesine Yardımcı Oluyor mu?"
 cardTitle: "Çocuğumun Üniversitesine Yardımcı Oluyor mu?"
 category: "aile-ve-haklar"
 spot: "Golden Visa doğrudan bedava eğitim vermez; ama Avrupa'da eğitimin önündeki en büyük engeli — vize ve oturum belirsizliğini — ortadan kaldırır."
-order: 13
+order: 14
 featured: false
 placeholderLabel: "Eğitim"
 heroTag: "Aile & Haklar"

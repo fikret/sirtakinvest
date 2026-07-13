@@ -3,7 +3,7 @@ title: "Yunanistan'da Kiracı Kolay Bulunuyor mu?"
 cardTitle: "Kiracı Kolay Bulunuyor mu?"
 category: "yatirim-firsati"
 spot: "Yunanistan'da kiracı bulmak zor değil. Zor olan, yanlış fiyattan alınmış mülke aynı oranda kiracı bulmak. İşin sırrı lokasyon ve fiyat dengesi."
-order: 14
+order: 3
 featured: false
 placeholderLabel: "Kiracı"
 heroTag: "Yatırım Fırsatı"

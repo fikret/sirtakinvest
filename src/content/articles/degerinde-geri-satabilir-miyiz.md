@@ -3,7 +3,7 @@ title: "Değerinde Geri Satabiliyor muyuz?"
 cardTitle: "Değerinde Geri Satabiliyor muyuz?"
 category: "yatirim-firsati"
 spot: "Golden Visa yatırımcılarının çoğu satmak için almaz; ama gerektiğinde değerinde satabilmek, yatırımın kalitesini belirler."
-order: 11
+order: 6
 featured: false
 placeholderLabel: "Yeniden Satış"
 heroTag: "Yatırım Fırsatı"

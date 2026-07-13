@@ -3,7 +3,7 @@ title: "Golden Visa’nın Süresi Ne Kadar?"
 cardTitle: "Golden Visa'nın Süresi Ne Kadar?"
 category: "vize-kolayligi"
 spot: "İlk kart 5 yıl geçerlidir; gayrimenkul yatırımınız devam ettiği sürece 5’er yıllık dönemlerle yenilenir."
-order: 7
+order: 4
 featured: false
 placeholderLabel: "Süre"
 heroTag: "Vize & Oturum"

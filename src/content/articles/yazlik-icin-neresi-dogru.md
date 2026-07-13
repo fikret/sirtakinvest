@@ -3,7 +3,7 @@ title: "Yazlık İçin Neresi Doğru Olur? Ada mı, Anakara mı?"
 cardTitle: "Yazlık İçin Neresi Doğru Olur?"
 category: "adalarda-yazlik"
 spot: "Yunan adalarında ev fikri cazip; ama Golden Visa'yı romantik hayallerle değil gerçeklerle yapmak gerekir. Akıllı strateji: önce şehir, sonra ada."
-order: 16
+order: 15
 featured: true
 placeholderLabel: "Yazlık"
 heroTag: "Yunan Adalarında Yazlık"

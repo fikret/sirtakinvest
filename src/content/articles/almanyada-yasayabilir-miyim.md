@@ -3,7 +3,7 @@ title: "Golden Visa ile Almanya’da Yaşayabilir miyim?"
 cardTitle: "Almanya'da Yaşabilir miyim?"
 category: "vize-kolayligi"
 spot: "Golden Visa Almanya’ya vizesiz seyahat sağlar; kalıcı yaşam için Almanya’nın kendi oturum prosedürü gerekir."
-order: 6
+order: 12
 featured: false
 placeholderLabel: "Schengen"
 heroTag: "Vize & Oturum"

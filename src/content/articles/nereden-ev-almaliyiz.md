@@ -3,7 +3,7 @@ title: "Yunanistan’da Nereden Ev Almalıyız?"
 cardTitle: "Yunanistan'da Nereden Ev Almalıyız?"
 category: "yatirim-firsati"
 spot: "Tek bir doğru lokasyon yoktur. Doğru yer; amacınıza, bütçenize, aile yapınıza ve gelecek planınıza göre değişir."
-order: 9
+order: 2
 featured: true
 placeholderLabel: "Lokasyon"
 heroTag: "Yatırım Fırsatı"

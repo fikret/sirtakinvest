@@ -3,7 +3,7 @@ title: "Atina'ya Uçak Bulmak Kolay mı? Avrupa'da İkinci Eviniz"
 cardTitle: "Uçak Bulmak Kolay mı?"
 category: "ikinci-ev"
 spot: "İstanbul–Atina arası yaklaşık 1 saat; günde 5 farklı havayolu ile 12 karşılıklı uçuş. Cuma akşamı işten çıkıp akşam yemeğini Atina'daki evinizde yiyebilirsiniz."
-order: 15
+order: 16
 featured: false
 placeholderLabel: "Ulaşım"
 heroTag: "2. Evim Yunanistan"

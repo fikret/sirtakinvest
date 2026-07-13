@@ -3,7 +3,7 @@ title: "Golden Visa'nın Yenilenmesi Garanti mi?"
 cardTitle: "Yenilenmesi Garanti mi?"
 category: "vize-kolayligi"
 spot: "Yatırım miktarını temsil eden mülkiyetiniz devam ettiği sürece, oturum izniniz her 5 yılda bir garantili olarak yenilenir."
-order: 12
+order: 13
 featured: false
 placeholderLabel: "Yenileme"
 heroTag: "Vize & Oturum"

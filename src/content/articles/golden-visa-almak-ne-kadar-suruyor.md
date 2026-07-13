@@ -3,7 +3,7 @@ title: "Golden Visa Almak Ne Kadar Sürüyor?"
 cardTitle: "Golden Visa Almak Ne Kadar Sürüyor?"
 category: "vize-kolayligi"
 spot: "Doğru hazırlanmış bir dosyada Golden Visa yolculuğu ortalama 2–4 ay sürer. Bu süre bir gecikme değil, güvenli zemindir."
-order: 2
+order: 1
 featured: true
 placeholderLabel: "Süreç"
 heroTag: "Vize & Oturum"

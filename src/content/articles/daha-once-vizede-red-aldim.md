@@ -3,7 +3,7 @@ title: "Daha Önce Vizede Red Aldım, Golden Visa Sürecini Etkiler mi?"
 cardTitle: "Daha Önce Vizede Red Aldım."
 category: "vize-kolayligi"
 spot: "Geçmişteki bir Schengen vize reddi Golden Visa sürecini otomatik engellemez; dosyanın doğru kurgulanması yeterlidir."
-order: 1
+order: 10
 featured: true
 placeholderLabel: "Vize Reddi"
 heroTag: "Vize & Oturum"
